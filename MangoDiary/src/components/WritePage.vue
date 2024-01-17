@@ -4,7 +4,7 @@
       <ul class="header-button-left">
         <li @click="goToCalendar">prev</li>
       </ul>
-      <img src="/images/logo2.png" class="logo">
+      <img src="/images/logo.png" class="logo">
       <ul class="header-button-right">
         <li @click="submit">submit</li>
       </ul>

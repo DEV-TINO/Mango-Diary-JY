@@ -1,7 +1,7 @@
 <template>
   <div class="statistics-page">
     <header>
-      <img src="/images/logo2.png" class="logo">
+      <img src="/images/logo.png" class="logo">
       <div>
         <select v-model="$store.state.selectedYear" @change="updateCalendar">
           <option v-for="year in yearRange" :key="year" :value="year">{{ year }}</option>

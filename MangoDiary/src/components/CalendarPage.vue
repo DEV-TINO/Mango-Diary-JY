@@ -2,7 +2,7 @@
   <div class="calendar-page">
     <header>
       <div>
-        <img src="/images/logo2.png" class="logo">
+        <img src="/images/logo.png" class="logo">
       </div>
       <div>
           <select v-model="$store.state.selectedYear" @change="updateCalendar()">

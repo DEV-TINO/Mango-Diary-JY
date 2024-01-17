@@ -1,7 +1,7 @@
 <template>
   <div class="splash-page">
-    <img src="/images/logo.png" class="logo">
-    <h4 @click="redirectToCalendar" class="start">Touch to Start</h4>
+    <img src="/images/title.png" class="logo">
+    <h4 @click="redirectToCalendar()" class="start">Touch to Start</h4>
   </div>
 </template>
 
