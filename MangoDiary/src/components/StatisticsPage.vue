@@ -3,13 +3,13 @@
     <header>
       <img src="/images/logo2.png" class="logo">
       <div>
-        <select id="yearSelect" v-model="selectedYear" @change="updateStatistics">
+        <select v-model="$store.state.selectedYear" @change="updateCalendar">
           <option v-for="year in yearRange" :key="year" :value="year">{{ year }}</option>
         </select>
       </div>
       <div>
-        <select id="monthSelect" v-model="selectedMonth" @change="updateStatistics">
-          <option v-for="(month, index) in 12" :key="index + 1" :value="index + 1">{{ monthNames[index] }}</option>
+        <select v-model="$store.state.selectedMonth" @change="updateCalendar">
+          <option v-for="month in 12" :key="month" :value="month">{{ $store.state.monthNames[month-1] }}</option>
         </select>
       </div>
     </header>
@@ -60,7 +60,7 @@
       </table>
     </div>
     <footer>
-      <router-link to="/calendar">캘린더</router-link>
+      <router-link :to="this.$store.state.calendar">캘린더</router-link>
     </footer>
   </div>
 </template>
@@ -69,17 +69,12 @@
 export default {
   data() {
     return {
-      selectedYear: new Date().getFullYear(),
-      selectedMonth: new Date().getMonth() + 1,
     };
   },
   computed: {
     yearRange() {
       const currentYear = new Date().getFullYear();
       return Array.from({ length: 10 }, (_, index) => currentYear - index);
-    },
-    monthNames() {
-      return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     },
   },
   methods: {

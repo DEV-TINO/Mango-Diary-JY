@@ -9,7 +9,7 @@
 export default {
   methods: {
     redirectToCalendar() {
-      this.$router.push('/calendar');
+      this.$router.push(this.$store.state.calendar);
     }
   }
 }

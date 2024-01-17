@@ -5,19 +5,19 @@
         <img src="/images/logo2.png" class="logo">
       </div>
       <div>
-          <select v-model="selectedYear" @change="updateCalendar">
+          <select v-model="$store.state.selectedYear" @change="updateCalendar()">
             <option v-for="year in yearRange" :key="year" :value="year">{{ year }}</option>
           </select>
         </div>
         <div>
-          <select v-model="selectedMonth" @change="updateCalendar">
-            <option v-for="(month, index) in 12" :key="index + 1" :value="index + 1">{{ monthNames[index] }}</option>
+          <select v-model="$store.state.selectedMonth" @change="updateCalendar()">
+            <option v-for="month in 12" :key="month" :value="month">{{ $store.state.monthNames[month-1] }}</option>
           </select>
         </div>
     </header>
 
     <div class="week">
-      <div class="day-header" v-for="dayName in dayNames" :key="dayName">{{ dayName }}</div>
+      <div class="day-header" v-for="dayName in $store.state.dayNames" :key="dayName">{{ dayName }}</div>
     </div>
   <div class="calendar">
       <div class="week" v-for="week in calendar" :key="week">
@@ -29,7 +29,7 @@
   </div>
 
     <footer>
-      <router-link to="/statistics">통계</router-link>
+      <router-link :to="this.$store.state.statistics">통계</router-link>
     </footer>
   </div>
 </template>
@@ -38,19 +38,12 @@
 export default {
   data() {
     return {
-      selectedYear: new Date().getFullYear(),
-      selectedMonth: new Date().getMonth() + 1,
-      today: new Date().getDate(),
-      dayNames: ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'],
     };
   },
   computed: {
     yearRange() {
         const currentYear = new Date().getFullYear();
         return Array.from({ length: 10 }, (_, index) => currentYear - index);
-    },
-    monthNames() {
-      return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     },
     calendar() {
       return this.generateCalendar();
@@ -81,10 +74,10 @@ export default {
       this.calendar = this.generateCalendar();
     },
     isToday(day) {
-      return day == this.today;
+      return day == this.$store.state.today;
     },
     writeDiary() {
-      this.$router.push('/writing');
+      this.$router.push(this.$store.state.write);
     },
   },
 };

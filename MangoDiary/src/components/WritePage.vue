@@ -14,13 +14,13 @@
       <div>
         <h3>오늘의 기분</h3>
         <div>
-          <img v-for="(emoji, index) in moodEmojis" :key="index" :src="emoji" @click="selectEmoji(index)" class="moodList">
+          <img v-for="(emoji, index) in $store.state.moodEmojis" :key="index" :src="`/images/${emoji}.jpg`" @click="selectEmoji(index, emoji)" class="mood-list">
         </div>
       </div>
 
-      <h3>오늘의 일기</h3>
-      <h4>{{ year }}년 {{ month }}월 {{ day }}일</h4>
-      <textarea v-model="diaryContent" placeholder="오늘 하루는 무엇을 했나요?"></textarea>
+      <h3 class="title">오늘의 일기</h3>
+      <h4 class="date">{{ $store.state.selectedYear }}년 {{ $store.state.selectedMonth }}월 {{ $store.state.today }}일</h4>
+      <textarea class="diary-box" v-model="diaryContent" placeholder="오늘 하루는 무엇을 했나요?" maxlength="200"></textarea>
 
       <label for="imageInput">
         <img class="selctedImage" v-if="!selectedImage" src="/images/photo.png">
@@ -34,7 +34,7 @@
       >
     </div>
     <footer>
-      <router-link to="/statistics">통계</router-link>
+      <router-link :to="this.$store.state.statistics">통계</router-link>
     </footer>
   </div>
 </template>
@@ -45,35 +45,21 @@ export default {
     return {
       diaryContent: '',
       selectedImage: null,
-      moodEmojis: [
-        '/images/mood1.jpg',
-        '/images/mood2.jpg',
-        '/images/mood3.jpg',
-        '/images/mood4.jpg',
-        '/images/mood5.jpg'
-      ],
-      originalEmojis: [
-        '/images/mood1.jpg',
-        '/images/mood2.jpg',
-        '/images/mood3.jpg',
-        '/images/mood4.jpg',
-        '/images/mood5.jpg'
-      ],
     };
   },
   methods: {
     goToCalendar() {
-      this.$router.push('/calendar');
+      this.$router.push(this.$store.state.calendar);
     },
     submit() {
     },
-    selectEmoji(i) {
-      this.moodEmojis = [...this.originalEmojis];
-      this.moodEmojis[i] = `/images/mood${i + 1}c.jpg`;
+    selectEmoji(i, emoji) {
+      this.$store.state.moodEmojis = [...this.$store.state.originalEmojis];
+      this.$store.state.moodEmojis[i] = `colored/${emoji.split('/')[1]}`;
     },
     handleImageUpload(event) {
       const file = event.target.files;
-      this.selectedImage = URL.createObjectURL(file[0])
+      this.selectedImage = URL.createObjectURL(file[0]);
     },
   },
 };
