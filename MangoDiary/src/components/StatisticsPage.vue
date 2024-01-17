@@ -81,6 +81,9 @@ export default {
     updateStatistics() {
     },
   },
+  mounted() {
+    this.$store.commit('getToday');
+  },
 }
 </script>
 

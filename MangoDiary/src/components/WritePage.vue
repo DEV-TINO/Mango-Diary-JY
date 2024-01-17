@@ -65,6 +65,9 @@ export default {
       this.selectedImage = URL.createObjectURL(file[0]);
     },
   },
+  mounted() {
+    this.$store.commit('getToday');
+  },
 };
 </script>
 

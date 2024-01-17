@@ -79,6 +79,8 @@ export default {
     writeDiary() {
       this.$router.push(this.$store.state.write);
     },
+  mounted() {
+    this.$store.commit('getToday');
   },
 };
 </script>
