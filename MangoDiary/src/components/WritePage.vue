@@ -85,13 +85,11 @@ export default {
   height: 844px;
   width: 390px;
 }
-
 .logo {
   margin-top: 16px;
   width: 100px;
   height: auto;
 }
-
 .header-button-left {
   float: left;
   width: 50px;

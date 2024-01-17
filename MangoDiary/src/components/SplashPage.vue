@@ -23,13 +23,11 @@ export default {
   height: 844px;
   width: 390px;
 }
-
 .logo {
   margin-top: 200px;
   max-width: 100%;
   height: auto;
 }
-
 .start {
   text-align: center;
   margin-top: 300px;

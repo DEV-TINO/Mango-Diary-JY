@@ -6,24 +6,19 @@
       </div>
       <div>
           <select v-model="selectedYear" @change="updateCalendar">
-
             <option v-for="year in yearRange" :key="year" :value="year">{{ year }}</option>
           </select>
         </div>
         <div>
           <select v-model="selectedMonth" @change="updateCalendar">
-
             <option v-for="(month, index) in 12" :key="index + 1" :value="index + 1">{{ monthNames[index] }}</option>
           </select>
         </div>
     </header>
 
-
     <div class="week">
       <div class="day-header" v-for="dayName in dayNames" :key="dayName">{{ dayName }}</div>
     </div>
-
-
   <div class="calendar">
       <div class="week" v-for="week in calendar" :key="week">
           <div class="day" v-for="day in week" :key="day">
@@ -37,7 +32,6 @@
       <router-link to="/statistics">통계</router-link>
     </footer>
   </div>
-
 </template>
 
 <script>
@@ -102,13 +96,11 @@ export default {
   height: 844px;
   width: 390px;
 }
-
 .logo {
   margin-top: 16px;
   width: 100px;
   height: auto;
 }
-
 .week {
   margin-top: 30px;
   display: flex;
@@ -116,7 +108,6 @@ export default {
   justify-content: center;
   font-size: 12px;
 }
-
 .day-header {
   width: 36px;
   height: 12px;
@@ -124,18 +115,15 @@ export default {
   font-size: 12px;
   margin-bottom: -20px;
 }
-
 .calendar {
   display: grid;
   row-gap: 40px;
 }
-
 .day {
   width: 36px;
   height: 12px;
   border: 1px solid #ccc;
 }
-
 .day-container {
   margin-top: 8px;
   width: 36px;
