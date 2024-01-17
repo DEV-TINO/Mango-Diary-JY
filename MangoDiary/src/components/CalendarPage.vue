@@ -28,7 +28,7 @@
       </div>
   </div>
 
-    <footer>
+    <footer class="menu-bar">
       <router-link :to="this.$store.state.statistics">통계</router-link>
     </footer>
   </div>
@@ -88,6 +88,7 @@ export default {
   text-align: center;
   height: 844px;
   width: 390px;
+  position: relative;
 }
 .logo {
   margin-top: 16px;
@@ -99,13 +100,13 @@ export default {
   display: flex;
   column-gap: 18px;
   justify-content: center;
-  font-size: 12px;
+  font-size: 10px;
 }
 .day-header {
   width: 36px;
-  height: 12px;
+  height: 14px;
   border: 1px solid #ccc;
-  font-size: 12px;
+  font-size: 10px;
   margin-bottom: -20px;
 }
 .calendar {
@@ -114,7 +115,7 @@ export default {
 }
 .day {
   width: 36px;
-  height: 12px;
+  height: 14px;
   border: 1px solid #ccc;
 }
 .day-container {
@@ -127,12 +128,14 @@ export default {
   background-color: #3498db;
   color: #fff;
 }
-
-.hasDiary {
-  border: 1px solid #ff9f9f;
-}
-
-footer{
-  margin-top: 120px;
+.menu-bar {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  background-color: rgb(255, 255, 140);
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>

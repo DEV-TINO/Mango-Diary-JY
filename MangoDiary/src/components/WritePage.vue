@@ -1,6 +1,6 @@
 <template>
   <div class="write-page">
-    <header>
+    <header class="button-container">
       <ul class="header-button-left">
         <li @click="goToCalendar">prev</li>
       </ul>
@@ -12,7 +12,7 @@
 
     <div>
       <div>
-        <h3>오늘의 기분</h3>
+        <h3 class="title">오늘의 기분</h3>
         <div>
           <img v-for="(emoji, index) in $store.state.moodEmojis" :key="index" :src="`/images/${emoji}.jpg`" @click="selectEmoji(index, emoji)" class="mood-list">
         </div>
@@ -22,9 +22,12 @@
       <h4 class="date">{{ $store.state.selectedYear }}년 {{ $store.state.selectedMonth }}월 {{ $store.state.today }}일</h4>
       <textarea class="diary-box" v-model="diaryContent" placeholder="오늘 하루는 무엇을 했나요?" maxlength="200"></textarea>
 
-      <label for="imageInput">
-        <img class="selctedImage" v-if="!selectedImage" src="/images/photo.png">
-        <img class="selctedImage" v-else :src="selectedImage">
+      <label for="imageInput" class="input-container">
+        <div class="input-block" v-if="!selectedImage">
+          <label for="imageInput">+</label>
+          <label>Upload Image</label>
+        </div>
+        <img class="selected-image" v-else :src="selectedImage">
       </label>
       <input
         id="imageInput"
@@ -33,7 +36,7 @@
         @change="handleImageUpload"
       >
     </div>
-    <footer>
+    <footer class="menu-bar">
       <router-link :to="this.$store.state.statistics">통계</router-link>
     </footer>
   </div>
@@ -70,6 +73,7 @@ export default {
   text-align: center;
   height: 844px;
   width: 390px;
+  position: relative;
 }
 .logo {
   margin-top: 16px;
@@ -83,6 +87,7 @@ export default {
   margin-left: -45px;
   margin-right: 45px;
   font-size: 20px;
+  list-style-type: none;
 }
 .header-button-right {
   float: right;
@@ -91,45 +96,59 @@ export default {
   margin-left: -10px;
   margin-right: 10px;
   font-size: 20px;
+  list-style-type: none;
 }
-.moodList{
+.mood-list{
   width: 58px;
   height: auto;
   margin-inline: 7px;
 }
-.selctedImage{
-  width: 365px;
-  height: 127px;
-  margin-top: 10px;
+.selected-image{
+  width: 354px;
+  height: 140px;
 }
-ul {
-  list-style-type: none;
-}
-textarea {
+.diary-box {
   margin-top: -10px;
   width: 350px;
   height: 250px;
+  resize: none;
 }
-
-header{
+.button-container {
   display: flex;
   justify-content: space-evenly;
 }
-
-h3 {
+.title {
   text-align: left;
   margin-top: 30px;
   margin-left: 13px;
   margin-bottom: 10px;
 }
-
-h4{
+.date {
   margin-top: auto;
   margin-left: 17px;
   text-align: left;
 }
-
-footer {
-  margin-top: 50px;
+.menu-bar {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  background-color: rgb(255, 255, 140);
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.input-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.input-block {
+  width: 350px;
+  height: 140px;
+  border-style: dotted;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>

@@ -15,51 +15,51 @@
     </header>
 
     <div>
-      <div class="mostSelectedContainer">
-        <img src="/images/mood1c.jpg" class="mostSelectedEmoji">
-          <div class="leftAlignContent">
-            <h4>화나는 달</h4>
-            <p>화나는 날 : {{ 18 }}일</p>
-            <p>화나는 일이 많았던 이번 한 달 어쩌구<br>다음 달은 좀 더 행복한 하루 저쩌구</p>
+      <div class="most-selected-container">
+        <img src="/images/colored/angry.jpg" class="most-selected-emoji">
+          <div class="left-align-content">
+            <h4 class="selected-month">화나는 달</h4>
+            <p class="detail">화나는 날 : {{ 18 }}일</p>
+            <p class="detail">화나는 일이 많았던 이번 한 달 어쩌구<br>다음 달은 좀 더 행복한 하루 저쩌구</p>
           </div>
       </div>
-      <table>
+      <table class="statistic-table">
           <tr>
-            <th>순위</th>
-            <th>이모지</th>
+            <th class="statistic-label">순위</th>
+            <th class="statistic-label">이모지</th>
             <th></th>
           </tr>
           <tr>
-            <td>2</td>
+            <td class="statistic-detail">2</td>
             <td>
-                <img src="/images/mood2c.jpg" class="selectedImage">
+                <img src="/images/colored/depressed.jpg" class="selected-image">
             </td>
-            <td class="emojiDetails">우울한 날 : {{ 12 }}일</td>
+            <td class="emoji-details">우울한 날 : {{ 12 }}일</td>
           </tr>
           <tr>
-            <td>3</td>
+            <td class="statistic-detail">3</td>
             <td>
-                <img src="/images/mood3.jpg" class="selectedImage">
+                <img src="/images/grey/pleased.jpg" class="selected-image">
             </td>
-            <td class="emojiDetails">기쁜 날 : {{ 0 }}일</td>
+            <td class="emoji-details">기쁜 날 : {{ 0 }}일</td>
           </tr>
           <tr>
-            <td>3</td>
+            <td class="statistic-detail">3</td>
             <td>
-                <img src="/images/mood4.jpg" class="selectedImage">
+                <img src="/images/grey/happy.jpg" class="selected-image">
             </td>
-            <td class="emojiDetails">행복한 날 : {{ 0 }}일</td>
+            <td class="emoji-details">행복한 날 : {{ 0 }}일</td>
           </tr>
           <tr>
-            <td>3</td>
+            <td class="statistic-detail">3</td>
             <td>
-                <img src="/images/mood5.jpg" class="selectedImage">
+                <img src="/images/grey/sad.jpg" class="selected-image">
             </td>
-            <td class="emojiDetails">슬픈 날 : {{ 0 }}일</td>
+            <td class="emoji-details">슬픈 날 : {{ 0 }}일</td>
           </tr>
       </table>
     </div>
-    <footer>
+    <footer class="menu-bar">
       <router-link :to="this.$store.state.calendar">캘린더</router-link>
     </footer>
   </div>
@@ -89,6 +89,7 @@ export default {
   text-align: center;
   height: 844px;
   width: 390px;
+  position: relative;
 }
 .logo {
   margin-top: 16px;
@@ -96,50 +97,55 @@ export default {
   width: 100px;
   height: auto;
 }
-.mostSelectedEmoji{
+.most-selected-emoji{
   margin-top: 23px;
   width:140px;
   height: 110px;
 }
-.mostSelectedContainer{
+.most-selected-container{
   margin-top: 20px;
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 25px;
 }
-.leftAlignContent{
+.left-align-content{
   text-align: left;
 }
-.emojiDetails{
+.emoji-details{
   text-align: left;
   padding-left: 15px;
   font-size: 15px;
 }
-.selectedImage{
+.selected-image{
   width: 70px;
   height: auto;
 }
-h4 {
+.selected-month {
   font-size: 20px;
   margin-bottom: 15px;
 }
-p {
+.detail {
   font-size: 13px;
   margin-top: -5px;
 }
-table{
+.statistic-table {
   margin-left: 20px;
 }
-table th{
-  padding: 15px;
-}
-table td{
+.statistic-detail {
   font-size: 18px;
 }
-table th{
+.statistic-label {
   font-size: 20px;
+  padding: 15px;
 }
-footer {
-  margin-top: 113px;
+.menu-bar {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  background-color: rgb(255, 255, 140);
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
