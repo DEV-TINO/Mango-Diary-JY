@@ -19,14 +19,14 @@
     <div class="week">
       <div class="day-header" v-for="dayName in $store.state.dayNames" :key="dayName">{{ dayName }}</div>
     </div>
-  <div class="calendar">
+    <div class="calendar">
       <div class="week" v-for="week in calendar" :key="week">
           <div class="day" v-for="day in week" :key="day">
-              {{ day == null ? "-" : day }}
+              {{ showDay(day) }}
               <div class="day-container" :class="{ today: isToday(day) }" @click="writeDiary()"></div>
           </div>
       </div>
-  </div>
+    </div>
 
     <footer class="menu-bar">
       <router-link :to="this.$store.state.statistics">통계</router-link>
@@ -80,6 +80,10 @@ export default {
     writeDiary() {
       this.$router.push(this.$store.state.write);
     },
+    showDay(day) {
+      return day == null ? "-" : day
+    }
+  },
   mounted() {
     this.$store.commit('getToday');
   },
