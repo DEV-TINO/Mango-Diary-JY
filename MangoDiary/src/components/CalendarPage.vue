@@ -51,16 +51,17 @@ export default {
   },
   methods: {
     generateCalendar() {
-      const firstDay = new Date(this.selectedYear, this.selectedMonth - 1, 1).getDay();
-      const daysInMonth = new Date(this.selectedYear, this.selectedMonth, 0).getDate();
-
+      const firstDay = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth - 1, 1).getDay();
+      const daysInMonth = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth, 0).getDate();
+      const row = 7;
+      const col = 6;
       let calendar = [];
       let dayCount = 1;
 
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < col; i++) {
         let week = [];
-        for (let j = 0; j < 7; j++) {
-          if ((i === 0 && j < firstDay) || (i === 5 && dayCount > daysInMonth) || (i < 5 && dayCount > daysInMonth)) {
+        for (let j = 0; j < row; j++) {
+          if ((i == 0 && j < firstDay) || (dayCount > daysInMonth)) {
             week.push(null);
           } else {
             week.push(dayCount++);
