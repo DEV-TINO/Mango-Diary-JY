@@ -110,30 +110,31 @@ export default {
   font-size: 10px;
 }
 .day-header {
-  width: 36px;
+  width: 37px;
   height: 14px;
-  border: 1px solid #ccc;
+  background-color: rgb(255, 255, 204);
   font-size: 10px;
   margin-bottom: -20px;
 }
 .calendar {
   display: grid;
   row-gap: 40px;
+  margin-top: -10px;
+  width: 390px;
 }
 .day {
-  width: 36px;
+  width: 37px;
   height: 14px;
-  border: 1px solid #ccc;
+  background-color: rgb(255, 255, 204);
 }
 .day-container {
   margin-top: 8px;
-  width: 36px;
-  height: 36px;
-  border: 1px solid #ccc;
+  width: 37px;
+  height: 37px;
+  background-color: rgb(255, 255, 204);
 }
 .today {
-  background-color: #3498db;
-  color: #fff;
+  background-color: rgb(255, 255, 123);
 }
 .menu-bar {
   position: absolute;
