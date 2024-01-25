@@ -60,7 +60,7 @@
       </table>
     </div>
     <footer class="menu-bar">
-      <router-link :to="this.$store.state.calendar">캘린더</router-link>
+      <div @click="goToCalendar">캘린더</div>
     </footer>
   </div>
 </template>
@@ -79,6 +79,9 @@ export default {
   },
   methods: {
     updateStatistics() {
+    },
+    goToCalendar() {
+      this.$router.push(this.$store.state.calendar);
     },
   },
   mounted() {

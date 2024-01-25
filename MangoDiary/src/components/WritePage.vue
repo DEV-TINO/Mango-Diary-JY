@@ -37,7 +37,7 @@
       >
     </div>
     <footer class="menu-bar">
-      <router-link :to="this.$store.state.statistics">통계</router-link>
+      <div @click="goToStatistics">통계</div>
     </footer>
   </div>
 </template>
@@ -63,6 +63,9 @@ export default {
     handleImageUpload(event) {
       const file = event.target.files;
       this.selectedImage = URL.createObjectURL(file[0]);
+    },
+    goToStatistics() {
+      this.$router.push(this.$store.state.statistics);
     },
   },
   mounted() {

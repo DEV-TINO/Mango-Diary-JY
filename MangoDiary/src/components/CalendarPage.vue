@@ -19,6 +19,7 @@
     <div class="week">
       <div class="day-header" v-for="dayName in $store.state.dayNames" :key="dayName">{{ dayName }}</div>
     </div>
+    
     <div class="calendar">
       <div class="week" v-for="week in calendar" :key="week">
           <div class="day" v-for="day in week" :key="day">
@@ -29,7 +30,7 @@
     </div>
 
     <footer class="menu-bar">
-      <router-link :to="this.$store.state.statistics">통계</router-link>
+      <div @click="goToStatistics">통계</div>
     </footer>
   </div>
 </template>
@@ -79,6 +80,9 @@ export default {
     },
     writeDiary() {
       this.$router.push(this.$store.state.write);
+    },
+    goToStatistics() {
+      this.$router.push(this.$store.state.statistics);
     },
     showDay(day) {
       return day == null ? "-" : day
