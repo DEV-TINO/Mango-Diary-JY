@@ -150,8 +150,9 @@ export default {
   margin-top: 10px;
 }
 .input-block {
-  width: 350px;
+  width: 354px;
   height: 140px;
+  border: 2px;
   border-style: dotted;
   display: flex;
   flex-direction: column;
