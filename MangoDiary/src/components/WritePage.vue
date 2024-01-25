@@ -135,7 +135,7 @@ export default {
   position: absolute;
   bottom: 0px;
   width: 100%;
-  background-color: rgb(255, 255, 140);
+  background-color: rgb(255, 234, 128);
   height: 40px;
   display: flex;
   flex-direction: column;

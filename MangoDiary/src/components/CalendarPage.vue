@@ -112,7 +112,7 @@ export default {
 .day-header {
   width: 37px;
   height: 14px;
-  background-color: rgb(255, 255, 204);
+  background-color: rgb(255, 247, 204);
   font-size: 10px;
   margin-bottom: -20px;
 }
@@ -125,22 +125,22 @@ export default {
 .day {
   width: 37px;
   height: 14px;
-  background-color: rgb(255, 255, 204);
+  background-color: rgb(255, 247, 204);
 }
 .day-container {
   margin-top: 8px;
   width: 37px;
   height: 37px;
-  background-color: rgb(255, 255, 204);
+  background-color: rgb(255, 247, 204);
 }
 .today {
-  background-color: rgb(255, 255, 123);
+  background-color: rgb(255, 234, 128);
 }
 .menu-bar {
   position: absolute;
   bottom: 0px;
   width: 100%;
-  background-color: rgb(255, 255, 140);
+  background-color: rgb(255, 234, 128);
   height: 40px;
   display: flex;
   flex-direction: column;
