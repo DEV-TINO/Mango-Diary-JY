@@ -74,18 +74,18 @@ export default {
   computed: {
     yearRange() {
       const currentYear = new Date().getFullYear();
-      return Array.from({ length: 10 }, (_, index) => currentYear - index);
-    },
+      return Array.from({ length: 10 }, (_, index) => currentYear - index)
+    }
   },
   methods: {
     updateStatistics() {
     },
     goToCalendar() {
-      this.$router.push(this.$store.state.calendar);
+      this.$router.push(this.$store.state.calendar)
     },
   },
   mounted() {
-    this.$store.commit('getToday');
+    this.$store.commit('getToday')
   },
 }
 </script>

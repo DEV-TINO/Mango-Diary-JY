@@ -1,13 +1,13 @@
 import { createWebHistory, createRouter } from "vue-router";
 
 const routes = [
-    {path: "/",
+    { path: "/",
     component: () => import("./components/SplashPage.vue"),},
-    {path: "/calendar",
+    { path: "/calendar",
     component: () => import("./components/CalendarPage.vue")},
-    {path: "/write",
-    component: () => import("./components/WritePage.vue")},
-    {path: "/statistics",
+    { path: "/write/:selectedDay",
+    component: () => import("./components/WritePage.vue") },
+    { path: "/statistics",
     component: () => import("./components/StatisticsPage.vue")},
 ]
 

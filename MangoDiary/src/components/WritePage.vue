@@ -33,7 +33,7 @@
         id="imageInput"
         type="file"
         style="display: none"
-        @change="handleImageUpload"
+        @change="handleImageUpload()"
       >
     </div>
     <footer class="menu-bar">
@@ -52,9 +52,10 @@ export default {
   },
   methods: {
     goToCalendar() {
-      this.$router.push(this.$store.state.calendar);
+      this.$router.push(this.$store.state.calendar)
     },
     submit() {
+      this.$router.push(this.$store.state.calendar)
     },
     selectEmoji(i, emoji) {
       this.$store.state.moodEmojis = [...this.$store.state.originalEmojis];
@@ -62,10 +63,10 @@ export default {
     },
     handleImageUpload(event) {
       const file = event.target.files;
-      this.selectedImage = URL.createObjectURL(file[0]);
+      this.selectedImage = URL.createObjectURL(file[0])
     },
     goToStatistics() {
-      this.$router.push(this.$store.state.statistics);
+      this.$router.push(this.$store.state.statistics)
     },
   },
   mounted() {

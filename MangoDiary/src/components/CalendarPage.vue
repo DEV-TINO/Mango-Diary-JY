@@ -30,7 +30,7 @@
     </div>
 
     <footer class="menu-bar">
-      <div @click="goToStatistics">통계</div>
+      <div @click="goToStatistics()">통계</div>
     </footer>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
   computed: {
     yearRange() {
         const currentYear = new Date().getFullYear();
-        return Array.from({ length: 10 }, (_, index) => currentYear - index);
+        return Array.from({ length: 10 }, (_, index) => currentYear - index)
     },
     calendar() {
       return this.generateCalendar();
@@ -58,19 +58,18 @@ export default {
       const col = 6;
       let calendar = [];
       let dayCount = 1;
-
       for (let i = 0; i < col; i++) {
         let week = [];
         for (let j = 0; j < row; j++) {
           if ((i == 0 && j < firstDay) || (dayCount > daysInMonth)) {
-            week.push(null);
+            week.push(null)
           } else {
-            week.push(dayCount++);
+            week.push(dayCount++)
           }
         }
-        calendar.push(week);
+        calendar.push(week)
       }
-      return calendar;
+      return calendar
     },
     updateCalendar() {
       this.calendar = this.generateCalendar();
