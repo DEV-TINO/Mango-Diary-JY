@@ -67,10 +67,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-    };
-  },
   computed: {
     yearRange() {
       const currentYear = new Date().getFullYear();
