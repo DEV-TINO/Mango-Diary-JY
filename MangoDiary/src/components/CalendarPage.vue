@@ -24,7 +24,7 @@
       <div class="week" v-for="week in calendar" :key="week">
           <div class="day" v-for="day in week" :key="day">
               {{ showDay(day) }}
-              <div class="day-container" :class="{ today: isToday(day) }" @click="writeDiary()"></div>
+              <div class="day-container" :class="isToday(day)" @click="day != null && writeDiary(day)">
           </div>
       </div>
     </div>
@@ -43,8 +43,7 @@ export default {
   },
   computed: {
     yearRange() {
-        const currentYear = new Date().getFullYear();
-        return Array.from({ length: 10 }, (_, index) => currentYear - index)
+        return Array.from({ length: 10 }, (_, index) => this.$store.state.currentYear - index)
     },
     calendar() {
       return this.generateCalendar();
@@ -75,7 +74,10 @@ export default {
       this.calendar = this.generateCalendar();
     },
     isToday(day) {
-      return day == this.$store.state.today;
+      if (day == this.$store.state.today && 
+        this.$store.state.currentYear == this.$store.state.selectedYear &&
+        this.$store.state.currentMonth == this.$store.state.selectedMonth)
+        return "today"
     },
     writeDiary() {
       this.$router.push(this.$store.state.write);

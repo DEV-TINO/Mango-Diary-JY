@@ -69,8 +69,7 @@
 export default {
   computed: {
     yearRange() {
-      const currentYear = new Date().getFullYear();
-      return Array.from({ length: 10 }, (_, index) => currentYear - index)
+      return Array.from({ length: 10 }, (_, index) => this.$store.state.currentYear - index)
     }
   },
   methods: {

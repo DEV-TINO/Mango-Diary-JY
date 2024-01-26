@@ -19,8 +19,10 @@ const store = createStore({
         getToday(state) {
             state.selectedYear = new Date().getFullYear();
             state.selectedMonth = new Date().getMonth() + 1;
+            state.currentYear = new Date().getFullYear();
+            state.currentMonth = new Date().getMonth() + 1;
             state.today = new Date().getDate();
-          },
+        },
     },
     actions: {
     }
