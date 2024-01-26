@@ -3,11 +3,12 @@ import { createStore } from 'vuex';
 const store = createStore({
     state() {
         return {
-            write : '/write',
             statistics : '/statistics',
             calendar : '/calendar',
             selectedYear: 0,
             selectedMonth: 0,
+            currentYear: 0,
+            currentMonth: 0,
             today: 0,
             dayNames: ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'],
             monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],

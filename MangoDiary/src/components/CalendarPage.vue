@@ -37,10 +37,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-    };
-  },
   computed: {
     yearRange() {
         return Array.from({ length: 10 }, (_, index) => this.$store.state.currentYear - index)
@@ -55,10 +51,10 @@ export default {
       const daysInMonth = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth, 0).getDate();
       const row = 7;
       const col = 6;
-      let calendar = [];
+      const calendar = [];
       let dayCount = 1;
       for (let i = 0; i < col; i++) {
-        let week = [];
+        const week = []
         for (let j = 0; j < row; j++) {
           if ((i == 0 && j < firstDay) || (dayCount > daysInMonth)) {
             week.push(null)
@@ -71,7 +67,7 @@ export default {
       return calendar
     },
     updateCalendar() {
-      this.calendar = this.generateCalendar();
+      this.calendar = this.generateCalendar()
     },
     isToday(day) {
       if (day == this.$store.state.today && 
@@ -83,14 +79,14 @@ export default {
       this.$router.push(this.$store.state.write);
     },
     goToStatistics() {
-      this.$router.push(this.$store.state.statistics);
+      this.$router.push(this.$store.state.statistics)
     },
     showDay(day) {
       return day == null ? "-" : day
     }
   },
   mounted() {
-    this.$store.commit('getToday');
+    this.$store.commit('getToday')
   },
 };
 </script>
