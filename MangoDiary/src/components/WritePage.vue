@@ -19,7 +19,7 @@
       </div>
 
       <h3 class="title">오늘의 일기</h3>
-      <h4 class="date">{{ $store.state.selectedYear }}년 {{ $store.state.selectedMonth }}월 {{ $store.state.today }}일</h4>
+      <h4 class="date">{{ $store.state.selectedYear }}년 {{ $store.state.selectedMonth }}월 {{ selectedDay }}일</h4>
       <textarea class="diary-box" v-model="diaryContent" placeholder="오늘 하루는 무엇을 했나요?" maxlength="200"></textarea>
 
       <label for="imageInput" class="input-container">
@@ -48,6 +48,7 @@ export default {
     return {
       diaryContent: '',
       selectedImage: null,
+      selectedDay: null,
     };
   },
   methods: {
@@ -70,6 +71,7 @@ export default {
     },
   },
   mounted() {
+    this.selectedDay = this.$route.params.selectedDay;
   },
 };
 </script>

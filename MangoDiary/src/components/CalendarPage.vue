@@ -25,6 +25,8 @@
           <div class="day" v-for="day in week" :key="day">
               {{ showDay(day) }}
               <div class="day-container" :class="isToday(day)" @click="day != null && writeDiary(day)">
+                <img class="emoji" :src="getSelectedEmojiPath()">
+              </div>
           </div>
       </div>
     </div>
@@ -75,15 +77,22 @@ export default {
         this.$store.state.currentMonth == this.$store.state.selectedMonth)
         return "today"
     },
-    writeDiary() {
-      this.$router.push(this.$store.state.write);
+    writeDiary(day) {
+      this.$router.push({
+        path: `/write/${day}`,
+        params: { selectedDay: day }
+      });
     },
     goToStatistics() {
       this.$router.push(this.$store.state.statistics)
     },
     showDay(day) {
       return day == null ? "-" : day
-    }
+    },
+    getSelectedEmojiPath() {
+      const selectedEmoji = this.$store.state.selectedEmoji;
+      return selectedEmoji
+    },
   },
   mounted() {
     this.$store.commit('getToday')
@@ -133,9 +142,16 @@ export default {
   width: 37px;
   height: 37px;
   background-color: rgb(255, 247, 204);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .today {
   background-color: rgb(255, 234, 128);
+}
+.emoji {
+  width:35px;
+  height:auto;
 }
 .menu-bar {
   position: absolute;
