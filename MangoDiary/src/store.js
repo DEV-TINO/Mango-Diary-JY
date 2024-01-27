@@ -12,8 +12,10 @@ const store = createStore({
             today: 0,
             dayNames: ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'],
             monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-            moodEmojis: ['grey/angry','grey/depressed','grey/pleased','grey/happy','grey/sad'],
-            originalEmojis: ['grey/angry','grey/depressed','grey/pleased','grey/happy','grey/sad'],
+            moodEmojis: ['angry','depressed','pleased','happy','sad'],
+            prefix: ['colored', 'grey'],
+            selectedEmoji: '',
+            selectedEmojiIndex: '',
         }
     },
     mutations: {

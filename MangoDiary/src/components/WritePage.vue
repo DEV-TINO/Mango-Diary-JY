@@ -14,7 +14,7 @@
       <div>
         <h3 class="title">오늘의 기분</h3>
         <div>
-          <img v-for="(emoji, index) in $store.state.moodEmojis" :key="index" :src="`/images/${emoji}.jpg`" @click="selectEmoji(index, emoji)" class="mood-list">
+          <img v-for="(emoji, index) in $store.state.moodEmojis" :key="index" :src="getEmojiImagePath(emoji, index)" @click="selectEmoji(emoji, index)" class="mood-list">
         </div>
       </div>
 
@@ -58,9 +58,12 @@ export default {
     submit() {
       this.$router.push(this.$store.state.calendar)
     },
-    selectEmoji(i, emoji) {
-      this.$store.state.moodEmojis = [...this.$store.state.originalEmojis];
-      this.$store.state.moodEmojis[i] = `colored/${emoji.split('/')[1]}`;
+    getEmojiImagePath(emoji, index) {
+      return `/images/${this.$store.state.prefix[this.$store.state.selectedEmojiIndex == index ? 0 : 1]}/${emoji}.jpg`
+    },
+    selectEmoji(emoji, index) {
+      this.$store.state.selectedEmoji = `/images/${this.$store.state.prefix[0]}/${emoji}.jpg`;
+      this.$store.state.selectedEmojiIndex = index;
     },
     handleImageUpload(event) {
       const file = event.target.files;
