@@ -33,7 +33,7 @@
         id="imageInput"
         type="file"
         style="display: none"
-        @change="handleImageUpload()"
+        @change="handleImageUpload($event)"
       >
     </div>
     <footer class="menu-bar">

@@ -44,7 +44,7 @@ export default {
         return Array.from({ length: 10 }, (_, index) => this.$store.state.currentYear - index)
     },
     calendar() {
-      return this.generateCalendar();
+      return this.generateCalendar()
     },
   },
   methods: {
