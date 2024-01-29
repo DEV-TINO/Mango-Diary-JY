@@ -74,8 +74,13 @@ export default {
       this.calendar = this.generateCalendar()
     },
     writeDiary(day) {
+      const selectedDate = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth - 1, day);
+      if(selectedDate > this.$store.state.date) {
+        alert("미래의 기분은 알 수 없습니다")
+        return
+      }
       this.$router.push({
-        path: `/write/${day}`,
+        path: `${this.$store.state.write}/${day}`,
         params: { selectedDay: day }
       });
     },

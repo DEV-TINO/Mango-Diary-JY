@@ -5,6 +5,7 @@ const store = createStore({
         return {
             statistics : '/statistics',
             calendar : '/calendar',
+            write : '/write',
             selectedYear: 0,
             selectedMonth: 0,
             currentYear: 0,
