@@ -9,7 +9,7 @@
       </div>
       <div>
         <select v-model="$store.state.selectedMonth" @change="updateCalendar">
-          <option v-for="month in 12" :key="month" :value="month">{{ $store.state.monthNames[month-1] }}</option>
+          <option v-for="month in 12" :key="month" :value="month">{{ $store.state.monthNames[month - 1] }}</option>
         </select>
       </div>
     </header>

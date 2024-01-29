@@ -18,11 +18,9 @@
         <div class="next-month" @click="changeMonth(1)">{{ ">" }}</div>
       </div>
     </header>
-
     <div class="week">
       <div class="day-header" v-for="dayName in $store.state.dayNames" :key="dayName">{{ dayName }}</div>
     </div>
-    
     <div class="calendar">
       <div class="week" v-for="week in calendar" :key="week">
           <div class="day" v-for="day in week" :key="day">
@@ -33,7 +31,6 @@
           </div>
       </div>
     </div>
-
     <footer class="menu-bar">
         <div @click="writeDiary(this.$store.state.today)" class="write-button">+</div>
         <div class="banner">MANGO</div>
