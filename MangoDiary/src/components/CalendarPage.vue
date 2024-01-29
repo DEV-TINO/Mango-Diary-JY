@@ -19,16 +19,16 @@
       </div>
     </header>
     <div class="week">
-      <div class="day-header" v-for="dayName in $store.state.dayNames" :key="dayName">{{ dayName }}</div>
+      <div class="day-header" v-for="dayName in $store.state.dayNames" :key="dayName"><b>{{ dayName }}</b></div>
     </div>
     <div class="calendar">
       <div class="week" v-for="week in calendar" :key="week">
-          <div class="day" v-for="day in week" :key="day">
-              {{ showDay(day) }}
-              <div class="day-container" :class="isToday(day)" @click="day != null && writeDiary(day)">
-                <img class="emoji" :src="getSelectedEmojiPath()">
-              </div>
+        <div class="day" v-for="day in week" :key="day">
+          {{ showDay(day) }}
+          <div class="day-container" @click="day != null && writeDiary(day)">
+            <img class="emoji" :src="getSelectedEmojiPath()">
           </div>
+        </div>
       </div>
     </div>
     <footer class="menu-bar">
@@ -73,12 +73,6 @@ export default {
     updateCalendar() {
       this.calendar = this.generateCalendar()
     },
-    isToday(day) {
-      if (day == this.$store.state.today && 
-        this.$store.state.currentYear == this.$store.state.selectedYear &&
-        this.$store.state.currentMonth == this.$store.state.selectedMonth)
-        return "today"
-    },
     writeDiary(day) {
       this.$router.push({
         path: `/write/${day}`,
@@ -89,7 +83,7 @@ export default {
       this.$router.push(this.$store.state.statistics)
     },
     showDay(day) {
-      return day == null ? "-" : day
+      return day == null ? "ㅤ" : day
     },
     getSelectedEmojiPath() {
       const selectedEmoji = this.$store.state.selectedEmoji;
@@ -153,9 +147,19 @@ export default {
 .week {
   margin-top: 30px;
   display: flex;
-  column-gap: 18px;
   justify-content: center;
+  column-gap: 8px;
   font-size: 10px;
+}
+.day-container {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 5px 0px;
+  border-bottom: 1px solid #b6b6b6;
+  border-right: 1px solid #b6b6b6;
 }
 .month-name {
   font-family: 'BMJUA';
@@ -166,34 +170,39 @@ export default {
   color: rgb(255, 115, 0);
 }
 .day-header {
-  width: 37px;
-  height: 14px;
-  background-color: rgb(255, 247, 204);
+  font-family: 'HCRDotum';
+  width: 44px;
+  height: 19px;
+  margin-right: 4px;
+  margin-left: -2px;
+  background-color: rgb(255, 200, 0);
   font-size: 10px;
-  margin-bottom: -20px;
+  margin-top: 10px;
+  margin-bottom: -10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color : white;
+  border-radius: 30px;
+}
+.day-header:nth-child(1) {
+  background-color: rgb(250, 166, 0);
 }
 .calendar {
   display: grid;
-  row-gap: 40px;
+  row-gap: 24px;
   margin-top: -10px;
   width: 390px;
 }
 .day {
-  width: 37px;
+  width: 45px;
   height: 14px;
-  background-color: rgb(255, 247, 204);
+  border-right: 1px solid #b6b6b6;
+  text-align: justify;
+  font-family: 'HCRDotum';
 }
-.day-container {
-  margin-top: 8px;
-  width: 37px;
-  height: 37px;
-  background-color: rgb(255, 247, 204);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.today {
-  background-color: rgb(255, 234, 128);
+.day:nth-child(1) {
+  color: rgb(255, 115, 0);
 }
 .emoji {
   width:35px;
@@ -208,11 +217,13 @@ export default {
   position: absolute;
   bottom: 0px;
   width: 100%;
-  background-color: rgb(255, 234, 128);
-  height: 40px;
+  height: 45px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 200, 0);
+}
 .select-month {
   margin-top: 15px;
   display: flex;
