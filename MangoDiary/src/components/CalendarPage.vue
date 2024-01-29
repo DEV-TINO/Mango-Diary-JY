@@ -4,16 +4,19 @@
       <div>
         <img src="/images/logo.png" class="logo">
       </div>
-      <div>
-          <select v-model="$store.state.selectedYear" @change="updateCalendar()">
-            <option v-for="year in yearRange" :key="year" :value="year">{{ year }}</option>
-          </select>
-        </div>
-        <div>
-          <select v-model="$store.state.selectedMonth" @change="updateCalendar()">
-            <option v-for="month in 12" :key="month" :value="month">{{ $store.state.monthNames[month-1] }}</option>
-          </select>
-        </div>
+      <div class="select-month">
+        <div class="left-select-month">
+          <div class="last-month" @click="changeMonth(-1)">{{ "<" }}</div>
+          <div class="month-block">
+            <div class="month-name"><b>{{ this.$store.state.selectedMonth }}</b></div>
+            <div class="year-block">
+              <div class="year">{{ this.$store.state.selectedYear }}</div>
+              <div class="month">{{ this.$store.state.monthNames[this.$store.state.selectedMonth - 1] }}</div>
+            </div>
+          </div>
+      </div>
+        <div class="next-month" @click="changeMonth(1)">{{ ">" }}</div>
+      </div>
     </header>
 
     <div class="week">
@@ -95,6 +98,17 @@ export default {
       const selectedEmoji = this.$store.state.selectedEmoji;
       return selectedEmoji
     },
+    changeMonth(monthSet) {
+      this.$store.commit('setSelectedMonth', this.$store.state.selectedMonth + monthSet);
+      if ((this.$store.state.selectedMonth + monthSet) < 0) {
+        this.$store.state.selectedYear--;
+        this.$store.state.selectedMonth = 12;
+      } else if ((this.$store.state.selectedMonth + monthSet) > 13) {
+        this.$store.state.selectedYear++;
+        this.$store.state.selectedMonth = 1;
+      }
+      this.updateCalendar();
+    },
   },
   mounted() {
     this.$store.commit('getToday')
@@ -103,6 +117,12 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'BMJUA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 @font-face {
   font-family: 'HCRDotum';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/HCRDotum.woff') format('woff');
@@ -120,12 +140,33 @@ export default {
   width: 100px;
   height: auto;
 }
+.left-select-month {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+.year {
+  font-family: 'HCRDotum';
+  font-size: 15px;
+}
+.month {
+  font-family: 'HCRDotum';
+  font-size: 15px;
+}
 .week {
   margin-top: 30px;
   display: flex;
   column-gap: 18px;
   justify-content: center;
   font-size: 10px;
+}
+.month-name {
+  font-family: 'BMJUA';
+  font-size: 55px;
+  margin-bottom: -10px;
+  margin-left: 15px;
+  margin-right: 15px;
+  color: rgb(255, 115, 0);
 }
 .day-header {
   width: 37px;
@@ -161,6 +202,11 @@ export default {
   width:35px;
   height:auto;
 }
+.year-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 .menu-bar {
   position: absolute;
   bottom: 0px;
@@ -170,6 +216,31 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+.select-month {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+}
+.last-month {
+  font-family: 'BMJUA';
+  margin-left: 5px;
+  margin-top: 34px;
+  cursor: pointer;
+  color: rgb(145, 145, 145);
+}
+.next-month {
+  font-family: 'BMJUA';
+  margin-right: 5px;
+  cursor: pointer;
+  color: rgb(145, 145, 145);
+}
+.month-block {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+}
 .icon {
   height: 40px;
   width: 40px;

@@ -10,8 +10,9 @@ const store = createStore({
             currentYear: 0,
             currentMonth: 0,
             today: 0,
+            date: 0,
             dayNames: ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'],
-            monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             moodEmojis: ['angry','depressed','pleased','happy','sad'],
             prefix: ['colored', 'grey'],
             selectedEmoji: '',
@@ -20,11 +21,18 @@ const store = createStore({
     },
     mutations: {
         getToday(state) {
-            state.selectedYear = new Date().getFullYear();
-            state.selectedMonth = new Date().getMonth() + 1;
-            state.currentYear = new Date().getFullYear();
-            state.currentMonth = new Date().getMonth() + 1;
-            state.today = new Date().getDate();
+            state.date = new Date();
+            state.selectedYear = state.date.getFullYear();
+            state.selectedMonth = state.date.getMonth() + 1;
+            state.currentYear = state.date.getFullYear();
+            state.currentMonth = state.date.getMonth() + 1;
+            state.today = state.date.getDate();
+        },
+        setSelectedYear(state, year) {
+            state.selectedYear = year;
+        },
+        setSelectedMonth(state, month) {
+            state.selectedMonth = month;
         },
     },
     actions: {
