@@ -32,7 +32,9 @@
     </div>
 
     <footer class="menu-bar">
-      <div @click="goToStatistics()">통계</div>
+        <div @click="writeDiary(this.$store.state.today)" class="write-button">+</div>
+        <div class="banner">MANGO</div>
+        <img class="icon" @click="goToStatistics()" src="/images/statistics.png">
     </footer>
   </div>
 </template>
@@ -101,6 +103,12 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'HCRDotum';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/HCRDotum.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 .calendar-page {
   text-align: center;
   height: 844px;
@@ -162,5 +170,22 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+.icon {
+  height: 40px;
+  width: 40px;
+  margin-left: 55px;
+  margin-top: 2px;
+}
+.write-button {
+  font-family: 'BMJUA';
+  font-size: 38px;
+  color: white;
+  margin-right: 65px;
+  margin-top: 6px;
+}
+.banner {
+  font-family: 'HCRDotum';
+  font-size: 28px;
+  margin-top: -3px;
 }
 </style>
