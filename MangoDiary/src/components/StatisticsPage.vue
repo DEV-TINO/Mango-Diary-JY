@@ -60,7 +60,10 @@
       </table>
     </div>
     <footer class="menu-bar">
-      <div @click="goToCalendar">캘린더</div>
+        <div class="banner">MANGO</div>
+        <div class="icon" @click="goToCalendar()">
+          <font-awesome-icon icon="far fa-calendar" />
+        </div>
     </footer>
   </div>
 </template>
@@ -143,10 +146,23 @@ export default {
   position: absolute;
   bottom: 0px;
   width: 100%;
-  background-color: rgb(255, 234, 128);
-  height: 40px;
+  height: 45px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 200, 0);
+}
+.icon {
+  font-size: 26px;
+  color: white;
+  margin-left: 65px;
+  margin-bottom: 5px;
+  margin-right: -88px;
+}
+.banner {
+  font-family: 'HCRDotum';
+  font-size: 28px;
+  margin-top: -3px;
 }
 </style>

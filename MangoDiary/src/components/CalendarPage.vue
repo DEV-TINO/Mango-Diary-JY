@@ -6,7 +6,7 @@
       </div>
       <div class="select-month">
         <div class="left-select-month">
-          <div class="last-month" @click="changeMonth(-1)">{{ "<" }}</div>
+          <font-awesome-icon icon="chevron-left" class="last-month" @click="changeMonth(-1)"/>
           <div class="month-block">
             <div class="month-name"><b>{{ this.$store.state.selectedMonth }}</b></div>
             <div class="year-block">
@@ -15,7 +15,7 @@
             </div>
           </div>
       </div>
-        <div class="next-month" @click="changeMonth(1)">{{ ">" }}</div>
+        <font-awesome-icon icon="chevron-right" class="next-month" @click="changeMonth(1)"/>
       </div>
     </header>
     <div class="week">
@@ -32,9 +32,13 @@
       </div>
     </div>
     <footer class="menu-bar">
-        <div @click="writeDiary(this.$store.state.today)" class="write-button">+</div>
+        <div @click="writeDiary(this.$store.state.today)" class="write-button">
+          <font-awesome-icon icon="plus" />
+        </div>
         <div class="banner">MANGO</div>
-        <img class="icon" @click="goToStatistics()" src="/images/statistics.png">
+        <div class="icon" @click="goToStatistics()">
+          <font-awesome-icon icon="chart-pie" />
+        </div>
     </footer>
   </div>
 </template>
@@ -237,15 +241,14 @@ export default {
   align-items: end;
 }
 .last-month {
-  font-family: 'BMJUA';
   margin-left: 5px;
-  margin-top: 34px;
+  margin-top: 32px;
   cursor: pointer;
   color: rgb(145, 145, 145);
 }
 .next-month {
-  font-family: 'BMJUA';
   margin-right: 5px;
+  margin-bottom: 2px;
   cursor: pointer;
   color: rgb(145, 145, 145);
 }
@@ -255,17 +258,16 @@ export default {
   align-items: end;
 }
 .icon {
-  height: 40px;
-  width: 40px;
-  margin-left: 55px;
-  margin-top: 2px;
+  font-size: 26px;
+  color: white;
+  margin-left: 58px;
+  margin-bottom: 2px;
 }
 .write-button {
-  font-family: 'BMJUA';
-  font-size: 38px;
+  font-size: 26px;
   color: white;
   margin-right: 65px;
-  margin-top: 6px;
+  margin-bottom: 4px;
 }
 .banner {
   font-family: 'HCRDotum';

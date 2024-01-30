@@ -1,13 +1,9 @@
 <template>
   <div class="write-page">
     <header class="button-container">
-      <ul class="header-button-left">
-        <li @click="goToCalendar">prev</li>
-      </ul>
+      <font-awesome-icon class="header-button-left" @click="goToCalendar" icon="chevron-left" />
       <img src="/images/logo.png" class="logo">
-      <ul class="header-button-right">
-        <li @click="submit">submit</li>
-      </ul>
+      <font-awesome-icon class="header-button-right" @click="submit" icon="check" />
     </header>
 
     <div>
@@ -24,8 +20,10 @@
 
       <label for="imageInput" class="input-container">
         <div class="input-block" v-if="!selectedImage">
-          <label for="imageInput">+</label>
-          <label>Upload Image</label>
+          <div>
+            <font-awesome-icon icon="far fa-images" />
+            <font-awesome-icon class="add-image" icon="plus" />
+          </div>
         </div>
         <img class="selected-image" v-else :src="selectedImage">
       </label>
@@ -37,7 +35,10 @@
       >
     </div>
     <footer class="menu-bar">
-      <div @click="goToStatistics">통계</div>
+        <div class="banner">MANGO</div>
+        <div class="icon" @click="goToStatistics()">
+          <font-awesome-icon icon="chart-pie" />
+        </div>
     </footer>
   </div>
 </template>
@@ -92,22 +93,18 @@ export default {
   height: auto;
 }
 .header-button-left {
-  float: left;
-  width: 50px;
-  margin-top: 40px;
-  margin-left: -45px;
-  margin-right: 45px;
+  margin-top: 45px;
+  margin-left: -10px;
+  margin-right: 15px;
   font-size: 20px;
-  list-style-type: none;
+  color: rgb(90, 55, 22);
 }
 .header-button-right {
-  float: right;
-  width: 50px;
-  margin-top: 40px;
-  margin-left: -10px;
-  margin-right: 10px;
+  margin-top: 45px;
+  margin-left: 10px;
+  margin-right: -10px;
   font-size: 20px;
-  list-style-type: none;
+  color: rgb(90, 55, 22);
 }
 .mood-list{
   width: 58px;
@@ -143,11 +140,12 @@ export default {
   position: absolute;
   bottom: 0px;
   width: 100%;
-  background-color: rgb(255, 234, 128);
-  height: 40px;
+  height: 45px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 200, 0);
 }
 .input-container {
   display: flex;
@@ -157,10 +155,30 @@ export default {
 .input-block {
   width: 354px;
   height: 140px;
+  font-size: 30px;
   border: 2px;
   border-style: dotted;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border-radius: 5px;
+  color: rgb(90, 55, 22);
+}
+.add-image {
+  font-size: 15px;
+  margin-bottom: 20px;
+  color: rgb(90, 55, 22);
+}
+.icon {
+  font-size: 26px;
+  color: white;
+  margin-left: 58px;
+  margin-bottom: 2px;
+  margin-right: -88px;
+}
+.banner {
+  font-family: 'HCRDotum';
+  font-size: 28px;
+  margin-top: -3px;
 }
 </style>
