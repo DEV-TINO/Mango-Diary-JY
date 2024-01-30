@@ -8,15 +8,15 @@
 
     <div>
       <div>
-        <h3 class="title">오늘의 기분</h3>
+        <h3 class="emotion">Emotion</h3>
         <div>
           <img v-for="(emoji, index) in $store.state.moodEmojis" :key="index" :src="getEmojiImagePath(emoji, index)" @click="selectEmoji(emoji, index)" class="mood-list">
         </div>
       </div>
 
-      <h3 class="title">오늘의 일기</h3>
-      <h4 class="date">{{ $store.state.selectedYear }}년 {{ $store.state.selectedMonth }}월 {{ selectedDay }}일</h4>
-      <textarea class="diary-box" v-model="diaryContent" placeholder="오늘 하루는 무엇을 했나요?" maxlength="200"></textarea>
+      <h3 class="note">Note</h3>
+      <h4 class="date">{{ $store.state.selectedYear }} / {{ $store.state.selectedMonth }} / {{ selectedDay }}</h4>
+      <textarea class="diary-box" v-model="diaryContent" placeholder="오늘 하루는 어땠나요?" maxlength="200"></textarea>
 
       <label for="imageInput" class="input-container">
         <div class="input-block" v-if="!selectedImage">
@@ -81,6 +81,12 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'HCRDotum';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/HCRDotum.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 .write-page {
   text-align: center;
   height: 844px;
@@ -114,27 +120,54 @@ export default {
 .selected-image{
   width: 354px;
   height: 140px;
+  border-radius: 5px;
 }
 .diary-box {
   margin-top: -10px;
   width: 350px;
   height: 250px;
   resize: none;
+  font-size: 20px;
+  font-family: 'HCRDotum';
 }
 .button-container {
   display: flex;
   justify-content: space-evenly;
 }
-.title {
-  text-align: left;
+.emotion {
+  height: 30px;
+  width: 100px;
   margin-top: 30px;
   margin-left: 13px;
+  margin-bottom: 15px;
+  font-family: 'HCRDotum';
+  background-color: rgb(250, 166, 0);
+  border-radius: 30px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.note {
+  height: 30px;
+  width: 65px;
+  margin-top: 20px;
+  margin-left: 13px;
   margin-bottom: 10px;
+  font-family: 'HCRDotum';
+  background-color: rgb(250, 166, 0);
+  border-radius: 30px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .date {
-  margin-top: auto;
-  margin-left: 17px;
+  margin-top: -3px;
+  margin-left: 18px;
+  margin-bottom: 20px;
   text-align: left;
+  color: rgb(90, 55, 22);
 }
 .menu-bar {
   position: absolute;
