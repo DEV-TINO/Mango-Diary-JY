@@ -16,49 +16,39 @@
         <font-awesome-icon icon="chevron-right" class="next-month"/>
       </div>
     </header>
-
     <div>
       <div class="most-selected-container">
         <img src="/images/colored/angry.jpg" class="most-selected-emoji">
-          <div class="left-align-content">
-            <h4 class="selected-month">화나는 달</h4>
-            <p class="detail">화나는 날 : {{ 18 }}일</p>
-            <p class="detail">화나는 일이 많았던 이번 한 달 어쩌구<br>다음 달은 좀 더 행복한 하루 저쩌구</p>
-          </div>
+        <div class="left-align-content">
+          <h4 class="selected-month">화나는 달</h4>
+          <p class="detail">화남 망고 {{ 18 }}개</p>
+          <p class="detail">어려움과 화남을 뒤로하고,<br>새로운 달을 긍정적으로 맞이해봐요</p>
+        </div>
       </div>
       <table class="statistic-table">
           <tr>
-            <th class="statistic-label">순위</th>
-            <th class="statistic-label">이모지</th>
-            <th></th>
-          </tr>
-          <tr>
-            <td class="statistic-detail">2</td>
             <td>
                 <img src="/images/colored/depressed.jpg" class="selected-image">
             </td>
-            <td class="emoji-details">우울한 날 : {{ 12 }}일</td>
+            <td class="emoji-details">우울 망고 {{ 12 }}개</td>
           </tr>
           <tr>
-            <td class="statistic-detail">3</td>
             <td>
                 <img src="/images/grey/pleased.jpg" class="selected-image">
             </td>
-            <td class="emoji-details">기쁜 날 : {{ 0 }}일</td>
+            <td class="emoji-details">기쁨 망고 {{ 0 }}개</td>
           </tr>
           <tr>
-            <td class="statistic-detail">3</td>
             <td>
                 <img src="/images/grey/happy.jpg" class="selected-image">
             </td>
-            <td class="emoji-details">행복한 날 : {{ 0 }}일</td>
+            <td class="emoji-details">행복 망고 {{ 0 }}개</td>
           </tr>
           <tr>
-            <td class="statistic-detail">3</td>
             <td>
                 <img src="/images/grey/sad.jpg" class="selected-image">
             </td>
-            <td class="emoji-details">슬픈 날 : {{ 0 }}일</td>
+            <td class="emoji-details">슬픔 망고 {{ 0 }}개</td>
           </tr>
       </table>
     </div>
@@ -168,15 +158,21 @@ export default {
   align-items: flex-start;
 }
 .most-selected-emoji{
-  margin-top: 23px;
+  margin-top: 20px;
   width:140px;
   height: 110px;
+  margin-left: -15px;
 }
 .most-selected-container{
-  margin-top: 20px;
+  margin-top: 35px;
   display: flex;
   justify-content: space-evenly;
+  margin-left: 17px;
   margin-bottom: 25px;
+  border: 2px solid rgb(255, 200, 0);
+  border-radius: 10px;
+  width: 350px;
+  height: 150px;
 }
 .left-align-content{
   text-align: left;
@@ -185,6 +181,7 @@ export default {
   text-align: left;
   padding-left: 15px;
   font-size: 15px;
+  font-family: 'HCRDotum';
 }
 .selected-image{
   width: 70px;
@@ -193,20 +190,18 @@ export default {
 .selected-month {
   font-size: 20px;
   margin-bottom: 15px;
+  margin-top: 25px;
+  color: rgb(90, 55, 22);
+  font-family: 'HCRDotum';
 }
 .detail {
   font-size: 13px;
   margin-top: -5px;
+  font-family: 'HCRDotum';
 }
 .statistic-table {
   margin-left: 20px;
-}
-.statistic-detail {
-  font-size: 18px;
-}
-.statistic-label {
-  font-size: 20px;
-  padding: 15px;
+  margin-top: 20px;
 }
 .menu-bar {
   position: absolute;
