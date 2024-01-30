@@ -14,7 +14,7 @@
               <div class="month">{{ this.$store.state.monthNames[this.$store.state.selectedMonth - 1] }}</div>
             </div>
           </div>
-      </div>
+        </div>
         <font-awesome-icon icon="chevron-right" class="next-month" @click="changeMonth(1)"/>
       </div>
     </header>
@@ -26,7 +26,7 @@
         <div class="day" v-for="day in week" :key="day">
           {{ showDay(day) }}
           <div class="day-container" @click="day != null && writeDiary(day)">
-            <img class="emoji" :src="getSelectedEmojiPath()">
+            <img class="emoji" :src="getSelectedEmojiPath(day)">
           </div>
         </div>
       </div>
@@ -44,7 +44,13 @@
 </template>
 
 <script>
+import data from '../data/data.js'
 export default {
+  data() {
+    return {
+      diary: data,
+    }
+  },
   computed: {
     yearRange() {
         return Array.from({ length: 10 }, (_, index) => this.$store.state.currentYear - index)
@@ -74,6 +80,17 @@ export default {
       }
       return calendar
     },
+    getSelectedEmojiPath(day) {
+      const matchingDiaryEntries = this.diary.filter(
+        (entry) =>
+          parseInt(entry.post_year) == this.$store.state.selectedYear &&
+          parseInt(entry.post_month) == this.$store.state.selectedMonth &&
+          parseInt(entry.post_date) == day
+      );
+      return matchingDiaryEntries.length > 0
+        ? `/images/colored/${matchingDiaryEntries[0].post_emoji}.jpg`
+        : ''
+    },
     updateCalendar() {
       this.calendar = this.generateCalendar()
     },
@@ -93,10 +110,6 @@ export default {
     },
     showDay(day) {
       return day == null ? "ㅤ" : day
-    },
-    getSelectedEmojiPath() {
-      const selectedEmoji = this.$store.state.selectedEmoji;
-      return selectedEmoji
     },
     changeMonth(monthSet) {
       this.$store.commit('setSelectedMonth', this.$store.state.selectedMonth + monthSet);
