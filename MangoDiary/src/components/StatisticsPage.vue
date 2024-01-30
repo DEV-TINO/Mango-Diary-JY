@@ -2,15 +2,18 @@
   <div class="statistics-page">
     <header>
       <img src="/images/logo.png" class="logo">
-      <div>
-        <select v-model="$store.state.selectedYear" @change="updateCalendar">
-          <option v-for="year in yearRange" :key="year" :value="year">{{ year }}</option>
-        </select>
-      </div>
-      <div>
-        <select v-model="$store.state.selectedMonth" @change="updateCalendar">
-          <option v-for="month in 12" :key="month" :value="month">{{ $store.state.monthNames[month - 1] }}</option>
-        </select>
+      <div class="select-month">
+        <div class="left-select-month">
+          <font-awesome-icon icon="chevron-left" class="last-month"/>
+          <div class="month-block">
+            <div class="month-name"><b>{{ this.$store.state.selectedMonth }}</b></div>
+            <div class="year-block">
+              <div class="year">{{ this.$store.state.selectedYear }}</div>
+              <div class="month">{{ this.$store.state.monthNames[this.$store.state.selectedMonth - 1] }}</div>
+            </div>
+          </div>
+        </div>
+        <font-awesome-icon icon="chevron-right" class="next-month"/>
       </div>
     </header>
 
@@ -89,6 +92,18 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'HCRDotum';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/HCRDotum.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'BMJUA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 .statistics-page {
   text-align: center;
   height: 844px;
@@ -100,6 +115,57 @@ export default {
   margin-bottom: 25px;
   width: 100px;
   height: auto;
+}
+.select-month {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+}
+.last-month {
+  margin-top: 22px;
+  cursor: pointer;
+  color: rgb(145, 145, 145);
+}
+.next-month {
+  margin-right: 110px;
+  margin-bottom: 13px;
+  cursor: pointer;
+  color: rgb(145, 145, 145);
+}
+.month-block {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  margin-left: 18px;
+}
+.left-select-month {
+  margin-left: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+.year {
+  font-family: 'HCRDotum';
+  font-size: 15px;
+}
+.month {
+  font-family: 'HCRDotum';
+  font-size: 15px;
+}
+.month-name {
+  font-family: 'BMJUA';
+  font-size: 55px;
+  margin-bottom: -10px;
+  margin-left: 15px;
+  margin-right: 15px;
+  color: rgb(255, 115, 0);
+}
+.year-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .most-selected-emoji{
   margin-top: 23px;
