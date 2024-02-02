@@ -56,6 +56,10 @@ export default {
       this.$router.push(this.$store.state.calendar)
     },
     submit() {
+      if(this.$store.state.selectedEmoji == null) {
+        alert("반드시 감정을 선택해야 합니다")
+        return
+      }
       this.$router.push(this.$store.state.calendar)
     },
     getEmojiImagePath(emoji) {
