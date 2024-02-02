@@ -20,36 +20,18 @@
       <div class="most-selected-container">
         <img src="/images/colored/angry.jpg" class="most-selected-emoji">
         <div class="left-align-content">
-          <h4 class="selected-month">화나는 달</h4>
-          <p class="detail">화남 망고 {{ 18 }}개</p>
-          <p class="detail">어려움과 화남을 뒤로하고,<br>새로운 달을 긍정적으로 맞이해봐요</p>
+          <h4 class="selected-month">{{ this.$store.state.statisticsData[0].month }}</h4>
+          <p class="detail">{{ this.$store.state.statisticsData[0].name }} 망고 {{ this.$store.state.statisticsData[0].count }}개</p>
+          <p class="detail">{{ this.$store.state.statisticsData[0].comment }}</p>
         </div>
       </div>
       <table class="statistic-table">
-          <tr>
-            <td>
-                <img src="/images/colored/depressed.jpg" class="selected-image">
-            </td>
-            <td class="emoji-details">우울 망고 {{ 12 }}개</td>
-          </tr>
-          <tr>
-            <td>
-                <img src="/images/grey/pleased.jpg" class="selected-image">
-            </td>
-            <td class="emoji-details">기쁨 망고 {{ 0 }}개</td>
-          </tr>
-          <tr>
-            <td>
-                <img src="/images/grey/happy.jpg" class="selected-image">
-            </td>
-            <td class="emoji-details">행복 망고 {{ 0 }}개</td>
-          </tr>
-          <tr>
-            <td>
-                <img src="/images/grey/sad.jpg" class="selected-image">
-            </td>
-            <td class="emoji-details">슬픔 망고 {{ 0 }}개</td>
-          </tr>
+        <tr v-for="index in 4" :key="index">
+          <td>
+            <img :src="getEmojiPath(index)" class="selected-image">
+          </td>
+          <td class="emoji-details">{{ this.$store.state.statisticsData[index].name }} 망고 {{ this.$store.state.statisticsData[index].count }}개</td>
+        </tr>
       </table>
     </div>
     <footer class="menu-bar">
@@ -74,6 +56,10 @@ export default {
     goToCalendar() {
       this.$router.push(this.$store.state.calendar)
     },
+    getEmojiPath(index) {
+      if (this.$store.state.statisticsData[index].count > 0) return `/images/colored/${this.$store.state.statisticsData[index].emoji}.jpg`
+      return `/images/grey/${this.$store.state.statisticsData[index].emoji}.jpg`
+    }
   },
   mounted() {
     this.$store.commit('getToday')
@@ -161,7 +147,6 @@ export default {
   margin-top: 20px;
   width:140px;
   height: 110px;
-  margin-left: -15px;
 }
 .most-selected-container{
   margin-top: 35px;
@@ -198,6 +183,7 @@ export default {
   font-size: 13px;
   margin-top: -5px;
   font-family: 'HCRDotum';
+  margin-right: 5px;
 }
 .statistic-table {
   margin-left: 20px;
