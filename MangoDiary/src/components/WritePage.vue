@@ -70,7 +70,7 @@ export default {
       this.$store.state.selectedEmoji = emoji
     },
     handleImageUpload(event) {
-      const file = event.target.files;
+      const file = event.target.files
       this.selectedImage = URL.createObjectURL(file[0])
     },
     goToStatistics() {

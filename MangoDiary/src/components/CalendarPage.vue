@@ -99,7 +99,7 @@ export default {
       this.calendar = this.generateCalendar()
     },
     writeDiary(day) {
-      const selectedDate = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth - 1, day);
+      const selectedDate = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth - 1, day)
       if(selectedDate > this.$store.state.date) {
         alert("미래의 기분은 알 수 없습니다")
         return
@@ -116,15 +116,15 @@ export default {
       return day == null ? "ㅤ" : day
     },
     changeMonth(monthSet) {
-      this.$store.commit('setSelectedMonth', this.$store.state.selectedMonth + monthSet);
+      this.$store.commit('setSelectedMonth', this.$store.state.selectedMonth + monthSet)
       if ((this.$store.state.selectedMonth + monthSet) < 0) {
-        this.$store.state.selectedYear--;
-        this.$store.state.selectedMonth = 12;
+        this.$store.state.selectedYear--
+        this.$store.state.selectedMonth = 12
       } else if ((this.$store.state.selectedMonth + monthSet) > 13) {
-        this.$store.state.selectedYear++;
-        this.$store.state.selectedMonth = 1;
+        this.$store.state.selectedYear++
+        this.$store.state.selectedMonth = 1
       }
-      this.updateCalendar();
+      this.updateCalendar()
     },
   },
   mounted() {
