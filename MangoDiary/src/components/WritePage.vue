@@ -5,7 +5,6 @@
       <img src="/images/logo.png" class="logo">
       <font-awesome-icon class="header-button-right" @click="submit" icon="check" />
     </header>
-
     <div>
       <div>
         <h3 class="emotion">Emotion</h3>
@@ -13,11 +12,9 @@
           <img v-for="(emoji, index) in $store.state.moodEmojis" :key="index" :src="getEmojiImagePath(emoji, index)" @click="selectEmoji(emoji, index)" class="mood-list">
         </div>
       </div>
-
       <h3 class="note">Note</h3>
       <h4 class="date">{{ $store.state.selectedYear }} / {{ $store.state.selectedMonth }} / {{ selectedDay }}</h4>
       <textarea class="diary-box" v-model="diaryContent" placeholder="오늘 하루는 어땠나요?" maxlength="200"></textarea>
-
       <label for="imageInput" class="input-container">
         <div class="input-block" v-if="!selectedImage">
           <div>
