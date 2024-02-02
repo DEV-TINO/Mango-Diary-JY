@@ -9,7 +9,7 @@
       <div>
         <h3 class="emotion">Emotion</h3>
         <div>
-          <img v-for="(emoji, index) in $store.state.moodEmojis" :key="index" :src="getEmojiImagePath(emoji, index)" @click="selectEmoji(emoji, index)" class="mood-list">
+          <img v-for="(emoji, index) in $store.state.moodEmojis" :key="index" :src="getEmojiImagePath(emoji)" @click="selectEmoji(emoji)" class="mood-list">
         </div>
       </div>
       <h3 class="note">Note</h3>
@@ -41,12 +41,14 @@
 </template>
 
 <script>
+import data from '../data/data.js'
 export default {
   data() {
     return {
       diaryContent: '',
       selectedImage: null,
       selectedDay: null,
+      diary: data,
     };
   },
   methods: {
@@ -56,12 +58,12 @@ export default {
     submit() {
       this.$router.push(this.$store.state.calendar)
     },
-    getEmojiImagePath(emoji, index) {
-      return `/images/${this.$store.state.prefix[this.$store.state.selectedEmojiIndex == index ? 0 : 1]}/${emoji}.jpg`
+    getEmojiImagePath(emoji) {
+      return `/images/${this.$store.state.prefix[this.$store.state.selectedEmoji == emoji ? 0 : 1]}/${emoji}.jpg`
     },
-    selectEmoji(emoji, index) {
-      this.$store.state.selectedEmoji = `/images/${this.$store.state.prefix[0]}/${emoji}.jpg`;
-      this.$store.state.selectedEmojiIndex = index;
+    selectEmoji(emoji) {
+      this.$store.state.selectedEmojiPath = `/images/${this.$store.state.prefix[0]}/${emoji}.jpg`
+      this.$store.state.selectedEmoji = emoji
     },
     handleImageUpload(event) {
       const file = event.target.files;
@@ -70,9 +72,18 @@ export default {
     goToStatistics() {
       this.$router.push(this.$store.state.statistics)
     },
+    getDiaryId() {
+      const { diaryId } = history.state
+      return diaryId == null ? -1 : diaryId
+    }
   },
   mounted() {
-    this.selectedDay = this.$route.params.selectedDay;
+    this.selectedDay = this.$route.params.selectedDay
+    if ( this.getDiaryId() > -1 ) {
+        this.diaryContent = this.diary[this.getDiaryId()].post_content
+        this.selectedImage = this.diary[this.getDiaryId()].post_upload_image
+        this.$store.state.selectedEmoji = this.diary[this.getDiaryId()].post_emoji
+    }
   },
 };
 </script>

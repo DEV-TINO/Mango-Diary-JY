@@ -80,7 +80,7 @@ export default {
       }
       return calendar
     },
-    getSelectedEmojiPath(day) {
+    getDiaryId(day) {
       const matchingDiaryEntries = this.diary.filter(
         (entry) =>
           parseInt(entry.post_year) == this.$store.state.selectedYear &&
@@ -88,8 +88,12 @@ export default {
           parseInt(entry.post_date) == day
       );
       return matchingDiaryEntries.length > 0
-        ? `/images/colored/${matchingDiaryEntries[0].post_emoji}.jpg`
-        : ''
+        ? matchingDiaryEntries[0].post_id
+        : null
+    },
+    getSelectedEmojiPath(day) {
+      const diaryId = this.getDiaryId(day)
+      return diaryId == null ? '' : `images/colored/${this.diary[diaryId].post_emoji}.jpg`
     },
     updateCalendar() {
       this.calendar = this.generateCalendar()
@@ -102,7 +106,7 @@ export default {
       }
       this.$router.push({
         path: `${this.$store.state.write}/${day}`,
-        params: { selectedDay: day }
+        state: { diaryId: this.getDiaryId(day) }
       });
     },
     goToStatistics() {

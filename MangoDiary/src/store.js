@@ -16,8 +16,8 @@ const store = createStore({
             monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             moodEmojis: ['angry','depressed','pleased','happy','sad'],
             prefix: ['colored', 'grey'],
-            selectedEmoji: '',
-            selectedEmojiIndex: '',
+            selectedEmojiPath: '',
+            selectedEmoji: null,
         }
     },
     mutations: {
