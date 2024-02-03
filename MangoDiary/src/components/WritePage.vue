@@ -100,9 +100,15 @@ export default {
       const { diaryId } = history.state
       this.diaryId = diaryId
     },
+    checkDate() {
+      if (this.$store.state.selectedYear == 0 || this.$store.state.selectedMonth == 0) {
+        alert("날짜 오류로 인해 캘린더 페이지로 이동합니다")
+        this.$router.push(this.$store.state.calendar)
+      }
     }
   },
   mounted() {
+    this.checkDate()
     this.getDiaryId()
     this.selectedDay = this.$route.params.selectedDay
     if (this.diaryId != null) {
