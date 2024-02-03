@@ -48,6 +48,7 @@ export default {
       diaryContent: '',
       selectedImage: null,
       selectedDay: null,
+      diaryId: null,
       selectedEmoji: null,
       diary: data,
     };
@@ -61,7 +62,26 @@ export default {
         alert("반드시 감정을 선택해야 합니다")
         return
       }
+      if (this.diaryId == null) {
+        this.$store.commit('setId')
+        this.diaryId = this.$store.state.id
+        this.setDiary(this.diaryId)
+      }
+      this.diary[this.diaryId].post_content = this.diaryContent
+      this.diary[this.diaryId].post_upload_image = this.selectedImage
+      this.diary[this.diaryId].post_emoji = this.selectedEmoji
       this.$router.push(this.$store.state.calendar)
+    },
+    setDiary(id) {
+      this.diary[id] = {
+        post_id: id,
+        post_year: `${this.$store.state.selectedYear}`,
+        post_month: `${this.$store.state.selectedMonth}`,
+        post_date: `${this.selectedDay}`,
+        post_emoji: "",
+        post_content: "",
+        post_upload_image: null
+      }
     },
     getEmojiImagePath(emoji) {
       return `/images/${this.$store.state.prefix[this.selectedEmoji == emoji ? 0 : 1]}/${emoji}.jpg`
@@ -78,14 +98,16 @@ export default {
     },
     getDiaryId() {
       const { diaryId } = history.state
-      return diaryId == null ? -1 : diaryId
+      this.diaryId = diaryId
+    },
     }
   },
   mounted() {
+    this.getDiaryId()
     this.selectedDay = this.$route.params.selectedDay
-    if ( this.getDiaryId() > -1 ) {
-        this.diaryContent = this.diary[this.getDiaryId()].post_content
-        this.selectedImage = this.diary[this.getDiaryId()].post_upload_image
+    if (this.diaryId != null) {
+        this.diaryContent = this.diary[this.diaryId].post_content
+        this.selectedImage = this.diary[this.diaryId].post_upload_image
         this.selectedEmoji = this.diary[this.diaryId].post_emoji
     }
   },
