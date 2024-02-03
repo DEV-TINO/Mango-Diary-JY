@@ -48,6 +48,7 @@ export default {
       diaryContent: '',
       selectedImage: null,
       selectedDay: null,
+      selectedEmoji: null,
       diary: data,
     };
   },
@@ -56,18 +57,17 @@ export default {
       this.$router.push(this.$store.state.calendar)
     },
     submit() {
-      if(this.$store.state.selectedEmoji == null) {
+      if(this.selectedEmoji == null) {
         alert("반드시 감정을 선택해야 합니다")
         return
       }
       this.$router.push(this.$store.state.calendar)
     },
     getEmojiImagePath(emoji) {
-      return `/images/${this.$store.state.prefix[this.$store.state.selectedEmoji == emoji ? 0 : 1]}/${emoji}.jpg`
+      return `/images/${this.$store.state.prefix[this.selectedEmoji == emoji ? 0 : 1]}/${emoji}.jpg`
     },
     selectEmoji(emoji) {
-      this.$store.state.selectedEmojiPath = `/images/${this.$store.state.prefix[0]}/${emoji}.jpg`
-      this.$store.state.selectedEmoji = emoji
+      this.selectedEmoji = emoji
     },
     handleImageUpload(event) {
       const file = event.target.files
@@ -86,7 +86,7 @@ export default {
     if ( this.getDiaryId() > -1 ) {
         this.diaryContent = this.diary[this.getDiaryId()].post_content
         this.selectedImage = this.diary[this.getDiaryId()].post_upload_image
-        this.$store.state.selectedEmoji = this.diary[this.getDiaryId()].post_emoji
+        this.selectedEmoji = this.diary[this.diaryId].post_emoji
     }
   },
 };
