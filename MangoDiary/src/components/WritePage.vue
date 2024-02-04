@@ -112,9 +112,9 @@ export default {
     this.getDiaryId()
     this.selectedDay = this.$route.params.selectedDay
     if (this.diaryId != -1) {
-        this.diaryContent = this.diary[this.diaryId].post_content
-        this.selectedImage = this.diary[this.diaryId].post_upload_image
-        this.selectedEmoji = this.diary[this.diaryId].post_emoji
+        this.diaryContent = this.diary[this.diaryId]?.post_content
+        this.selectedImage = this.diary[this.diaryId]?.post_upload_image
+        this.selectedEmoji = this.diary[this.diaryId]?.post_emoji
     }
   },
 };

@@ -88,7 +88,7 @@ export default {
           parseInt(entry.post_date) == day
       );
       return matchingDiaryEntries.length > 0
-        ? matchingDiaryEntries[0].post_id
+        ? matchingDiaryEntries[0]?.post_id
         : -1
     },
     getSelectedEmojiPath(day) {

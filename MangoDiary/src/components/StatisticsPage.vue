@@ -20,9 +20,9 @@
       <div class="most-selected-container">
         <img src="/images/colored/angry.jpg" class="most-selected-emoji">
         <div class="left-align-content">
-          <h4 class="selected-month">{{ this.$store.state.statisticsData[0].month }}</h4>
-          <p class="detail">{{ this.$store.state.statisticsData[0].name }} 망고 {{ this.$store.state.statisticsData[0].count }}개</p>
-          <p class="detail">{{ this.$store.state.statisticsData[0].comment }}</p>
+          <h4 class="selected-month">{{ this.$store.state.statisticsData[0]?.month }}</h4>
+          <p class="detail">{{ this.$store.state.statisticsData[0]?.name }} 망고 {{ this.$store.state.statisticsData[0]?.count }}개</p>
+          <p class="detail">{{ this.$store.state.statisticsData[0]?.comment }}</p>
         </div>
       </div>
       <table class="statistic-table">
@@ -30,7 +30,7 @@
           <td>
             <img :src="getEmojiPath(index)" class="selected-image">
           </td>
-          <td class="emoji-details">{{ this.$store.state.statisticsData[index].name }} 망고 {{ this.$store.state.statisticsData[index].count }}개</td>
+          <td class="emoji-details">{{ this.$store.state.statisticsData[index]?.name }} 망고 {{ this.$store.state.statisticsData[index]?.count }}개</td>
         </tr>
       </table>
     </div>
@@ -57,8 +57,8 @@ export default {
       this.$router.push(this.$store.state.calendar)
     },
     getEmojiPath(index) {
-      if (this.$store.state.statisticsData[index].count > 0) return `/images/colored/${this.$store.state.statisticsData[index].emoji}.jpg`
-      return `/images/grey/${this.$store.state.statisticsData[index].emoji}.jpg`
+      if (this.$store.state.statisticsData[index]?.count > 0) return `/images/colored/${this.$store.state.statisticsData[index].emoji}.jpg`
+      return `/images/grey/${this.$store.state.statisticsData[index]?.emoji}.jpg`
     }
   },
   mounted() {
