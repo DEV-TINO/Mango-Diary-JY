@@ -16,7 +16,7 @@ const store = createStore({
             monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             moodEmojis: ['angry','depressed','pleased','happy','sad'],
             prefix: ['colored', 'grey'],
-            id: 3,
+            diaryId: 3,
             statisticsData: [
                 {
                     month: '화나는 달',
@@ -72,7 +72,7 @@ const store = createStore({
             state.selectedMonth = month;
         },
         setId(state) {
-            state.id++
+            state.diaryId++
         },
         increaseSelectedYear(state) {
             state.selectedYear++

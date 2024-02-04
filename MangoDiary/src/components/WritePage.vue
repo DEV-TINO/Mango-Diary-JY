@@ -64,7 +64,7 @@ export default {
       }
       if (this.diaryId == -1) {
         this.$store.commit('setId')
-        this.diaryId = this.$store.state.id
+        this.diaryId = this.$store.state.diaryId
         this.setDiary(this.diaryId)
       }
       this.diary[this.diaryId].post_content = this.diaryContent
