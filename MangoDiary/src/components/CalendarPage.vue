@@ -118,10 +118,10 @@ export default {
     handleClickChangeMonth(monthSet) {
       this.$store.commit('setSelectedMonth', this.$store.state.selectedMonth + monthSet)
       if ((this.$store.state.selectedMonth + monthSet) < 0) {
-        this.$store.state.selectedYear--
+        this.$store.commit('decreaseSelectedYear')
         this.$store.state.selectedMonth = 12
       } else if ((this.$store.state.selectedMonth + monthSet) > 13) {
-        this.$store.state.selectedYear++
+        this.$store.commit('increaseSelectedYear')
         this.$store.state.selectedMonth = 1
       }
       this.updateCalendar()

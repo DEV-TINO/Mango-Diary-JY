@@ -74,6 +74,12 @@ const store = createStore({
         setId(state) {
             state.id++
         },
+        increaseSelectedYear(state) {
+            state.selectedYear++
+        },
+        decreaseSelectedYear(state) {
+            state.selectedYear--
+        },
     },
     actions: {
     }
