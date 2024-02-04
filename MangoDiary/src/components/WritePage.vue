@@ -1,9 +1,9 @@
 <template>
   <div class="write-page">
     <header class="button-container">
-      <font-awesome-icon class="header-button-left" @click="goToCalendar" icon="chevron-left" />
+      <font-awesome-icon class="header-button-left" @click="handleClickMoveCalendar()" icon="chevron-left" />
       <img src="/images/logo.png" class="logo">
-      <font-awesome-icon class="header-button-right" @click="submit" icon="check" />
+      <font-awesome-icon class="header-button-right" @click="submit()" icon="check" />
     </header>
     <div>
       <div>
@@ -33,7 +33,7 @@
     </div>
     <footer class="menu-bar">
         <div class="banner">MANGO</div>
-        <div class="icon" @click="goToStatistics()">
+        <div class="icon" @click="handleClickMoveStatistics()">
           <font-awesome-icon icon="chart-pie" />
         </div>
     </footer>
@@ -54,7 +54,7 @@ export default {
     };
   },
   methods: {
-    goToCalendar() {
+    handleClickMoveCalendar() {
       this.$router.push(this.$store.state.calendar)
     },
     submit() {
@@ -93,7 +93,7 @@ export default {
       const file = event.target.files
       this.selectedImage = URL.createObjectURL(file[0])
     },
-    goToStatistics() {
+    handleClickMoveStatistics() {
       this.$router.push(this.$store.state.statistics)
     },
     getDiaryId() {
