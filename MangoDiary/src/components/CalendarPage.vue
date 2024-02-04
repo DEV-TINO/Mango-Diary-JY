@@ -6,7 +6,7 @@
       </div>
       <div class="select-month">
         <div class="left-select-month">
-          <font-awesome-icon icon="chevron-left" class="last-month" @click="changeMonth(-1)"/>
+          <font-awesome-icon icon="chevron-left" class="last-month" @click="handleClickChangeMonth(-1)"/>
           <div class="month-block">
             <div class="month-name"><b>{{ this.$store.state.selectedMonth }}</b></div>
             <div class="year-block">
@@ -15,7 +15,7 @@
             </div>
           </div>
         </div>
-        <font-awesome-icon icon="chevron-right" class="next-month" @click="changeMonth(1)"/>
+        <font-awesome-icon icon="chevron-right" class="next-month" @click="handleClickChangeMonth(1)"/>
       </div>
     </header>
     <div class="week">
@@ -25,14 +25,14 @@
       <div class="week" v-for="week in calendar" :key="week">
         <div class="day" v-for="day in week" :key="day">
           {{ showDay(day) }}
-          <div class="day-container" @click="day != null && writeDiary(day)">
+          <div class="day-container" @click="day != null && handleClickWriteDiary(day)">
             <img class="emoji" :src="getSelectedEmojiPath(day)">
           </div>
         </div>
       </div>
     </div>
     <footer class="menu-bar">
-        <div @click="writeDiary(this.$store.state.today)" class="write-button">
+        <div @click="handleClickWriteDiary(this.$store.state.today)" class="write-button">
           <font-awesome-icon icon="plus" />
         </div>
         <div class="banner">MANGO</div>
@@ -98,7 +98,7 @@ export default {
     updateCalendar() {
       this.calendar = this.generateCalendar()
     },
-    writeDiary(day) {
+    handleClickWriteDiary(day) {
       const selectedDate = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth - 1, day)
       if(selectedDate > this.$store.state.date) {
         alert("미래의 기분은 알 수 없습니다")
@@ -115,7 +115,7 @@ export default {
     showDay(day) {
       return day == null ? "ㅤ" : day
     },
-    changeMonth(monthSet) {
+    handleClickChangeMonth(monthSet) {
       this.$store.commit('setSelectedMonth', this.$store.state.selectedMonth + monthSet)
       if ((this.$store.state.selectedMonth + monthSet) < 0) {
         this.$store.state.selectedYear--
