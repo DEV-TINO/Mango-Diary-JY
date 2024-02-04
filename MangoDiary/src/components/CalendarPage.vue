@@ -89,11 +89,11 @@ export default {
       );
       return matchingDiaryEntries.length > 0
         ? matchingDiaryEntries[0].post_id
-        : null
+        : -1
     },
     getSelectedEmojiPath(day) {
       const diaryId = this.getDiaryId(day)
-      return diaryId == null ? '' : `images/colored/${this.diary[diaryId].post_emoji}.jpg`
+      return diaryId == -1 ? '' : `images/colored/${this.diary[diaryId].post_emoji}.jpg`
     },
     updateCalendar() {
       this.calendar = this.generateCalendar()
@@ -113,7 +113,7 @@ export default {
       this.$router.push(this.$store.state.statistics)
     },
     showDay(day) {
-      return day == null ? "ㅤ" : day
+      return day ?? "ㅤ"
     },
     handleClickChangeMonth(monthSet) {
       this.$store.commit('setSelectedMonth', this.$store.state.selectedMonth + monthSet)

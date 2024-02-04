@@ -48,7 +48,7 @@ export default {
       diaryContent: '',
       selectedImage: null,
       selectedDay: null,
-      diaryId: null,
+      diaryId: 0,
       selectedEmoji: null,
       diary: data,
     };
@@ -62,7 +62,7 @@ export default {
         alert("반드시 감정을 선택해야 합니다")
         return
       }
-      if (this.diaryId == null) {
+      if (this.diaryId == -1) {
         this.$store.commit('setId')
         this.diaryId = this.$store.state.id
         this.setDiary(this.diaryId)
@@ -111,7 +111,7 @@ export default {
     this.checkDate()
     this.getDiaryId()
     this.selectedDay = this.$route.params.selectedDay
-    if (this.diaryId != null) {
+    if (this.diaryId != -1) {
         this.diaryContent = this.diary[this.diaryId].post_content
         this.selectedImage = this.diary[this.diaryId].post_upload_image
         this.selectedEmoji = this.diary[this.diaryId].post_emoji
