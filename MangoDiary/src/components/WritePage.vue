@@ -170,6 +170,9 @@ export default {
   resize: none;
   font-size: 20px;
   font-family: 'HCRDotum';
+  border: 2px solid rgb(90, 55, 22);
+  border-radius: 5px;
+  outline-color: rgb(255, 200, 0);
 }
 .button-container {
   display: flex;
