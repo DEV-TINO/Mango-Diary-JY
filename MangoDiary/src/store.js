@@ -26,7 +26,7 @@ const store = createStore({
             monthNames: MONTH_NAMES,
             moodEmojis: EMOJIS,
             prefix: PREFIX,
-            diaryId: 3,
+            diaryId: 0,
             statisticsData: [
                 {
                     month: '화나는 달',
