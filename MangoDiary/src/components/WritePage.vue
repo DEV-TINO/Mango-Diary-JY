@@ -155,11 +155,13 @@ export default {
   width: 58px;
   height: auto;
   margin-inline: 7px;
+  cursor: pointer;
 }
 .selected-image{
   width: 354px;
   height: 140px;
   border-radius: 5px;
+  cursor: pointer;
 }
 .diary-box {
   margin-top: -10px;
@@ -238,6 +240,7 @@ export default {
   justify-content: center;
   border-radius: 5px;
   color: rgb(90, 55, 22);
+  cursor: pointer;
 }
 .add-image {
   font-size: 15px;
@@ -250,10 +253,12 @@ export default {
   margin-left: 58px;
   margin-bottom: 2px;
   margin-right: -88px;
+  cursor: pointer;
 }
 .banner {
   font-family: 'HCRDotum';
   font-size: 28px;
   margin-top: -3px;
+  cursor: default;
 }
 </style>

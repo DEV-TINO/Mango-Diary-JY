@@ -206,10 +206,12 @@ export default {
   margin-left: 65px;
   margin-bottom: 5px;
   margin-right: -88px;
+  cursor: pointer;
 }
 .banner {
   font-family: 'HCRDotum';
   font-size: 28px;
   margin-top: -3px;
+  cursor: default;
 }
 </style>

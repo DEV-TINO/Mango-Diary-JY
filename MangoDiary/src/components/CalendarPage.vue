@@ -25,7 +25,7 @@
       <div class="week" v-for="week in calendar" :key="week">
         <div class="day" v-for="day in week" :key="day">
           {{ showDay(day) }}
-          <div class="day-container" @click="day != null && handleClickWriteDiary(day)">
+          <div class="day-container" :class="changePointer(day)" @click="day != null && handleClickWriteDiary(day)">
             <img class="emoji" :src="getSelectedEmojiPath(day)">
           </div>
         </div>
@@ -92,9 +92,12 @@ export default {
     updateCalendar() {
       this.calendar = this.generateCalendar()
     },
-    handleClickWriteDiary(day) {
+    isFutureDate(day) {
       const selectedDate = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth - 1, day)
-      if(selectedDate > this.$store.state.date) {
+      return selectedDate > this.$store.state.date
+    },
+    handleClickWriteDiary(day) {
+      if(this.isFutureDate(day)) {
         alert("미래의 기분은 알 수 없습니다")
         return
       }
@@ -120,6 +123,10 @@ export default {
       }
       this.updateCalendar()
     },
+    changePointer(day) {
+      if(this.isFutureDate(day)) return
+      return day == null ? "" : "pointer-cursor"
+    }
   },
   mounted() {
     this.$store.commit('getToday')
@@ -273,16 +280,22 @@ export default {
   color: white;
   margin-left: 58px;
   margin-bottom: 2px;
+  cursor: pointer;
 }
 .write-button {
   font-size: 26px;
   color: white;
   margin-right: 65px;
   margin-bottom: 4px;
+  cursor: pointer;
 }
 .banner {
   font-family: 'HCRDotum';
   font-size: 28px;
   margin-top: -3px;
+  cursor: default;
+}
+.pointer-cursor {
+  cursor: pointer;
 }
 </style>
