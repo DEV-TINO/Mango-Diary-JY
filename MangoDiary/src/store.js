@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import data from './data/data.js'
 
 const STATISTICS_ROUTE = '/statistics'
 const CALENDAR_ROUTE = '/calendar'
@@ -11,6 +12,7 @@ const PREFIX = ['colored', 'grey']
 const store = createStore({
     state() {
         return {
+            diary  : data,
             statistics : STATISTICS_ROUTE,
             calendar : CALENDAR_ROUTE,
             write : WRITE_ROUTE,

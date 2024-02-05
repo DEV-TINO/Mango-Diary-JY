@@ -44,13 +44,7 @@
 </template>
 
 <script>
-import data from '../data/data.js'
 export default {
-  data() {
-    return {
-      diary: data,
-    }
-  },
   computed: {
     yearRange() {
         return Array.from({ length: 10 }, (_, index) => this.$store.state.currentYear - index)
@@ -81,7 +75,7 @@ export default {
       return calendar
     },
     getDiaryId(day) {
-      const matchingDiaryEntries = this.diary.filter(
+      const matchingDiaryEntries = this.$store.state.diary.filter(
         (entry) =>
           parseInt(entry.post_year) == this.$store.state.selectedYear &&
           parseInt(entry.post_month) == this.$store.state.selectedMonth &&
@@ -93,7 +87,7 @@ export default {
     },
     getSelectedEmojiPath(day) {
       const diaryId = this.getDiaryId(day)
-      return diaryId == -1 ? '' : `images/colored/${this.diary[diaryId].post_emoji}.jpg`
+      return diaryId == -1 ? '' : `images/colored/${this.$store.state.diary[diaryId].post_emoji}.jpg`
     },
     updateCalendar() {
       this.calendar = this.generateCalendar()

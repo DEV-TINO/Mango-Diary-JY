@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import data from '../data/data.js'
 export default {
   data() {
     return {
@@ -50,7 +49,6 @@ export default {
       selectedDay: null,
       diaryId: 0,
       selectedEmoji: null,
-      diary: data,
     };
   },
   methods: {
@@ -67,13 +65,13 @@ export default {
         this.diaryId = this.$store.state.diaryId
         this.setDiary(this.diaryId)
       }
-      this.diary[this.diaryId].post_content = this.diaryContent
-      this.diary[this.diaryId].post_upload_image = this.selectedImage
-      this.diary[this.diaryId].post_emoji = this.selectedEmoji
+      this.$store.state.diary[this.diaryId].post_content = this.diaryContent
+      this.$store.state.diary[this.diaryId].post_upload_image = this.selectedImage
+      this.$store.state.diary[this.diaryId].post_emoji = this.selectedEmoji
       this.$router.push(this.$store.state.calendar)
     },
     setDiary(id) {
-      this.diary[id] = {
+      this.$store.state.diary[id] = {
         post_id: id,
         post_year: `${this.$store.state.selectedYear}`,
         post_month: `${this.$store.state.selectedMonth}`,
@@ -113,9 +111,9 @@ export default {
     this.getDiaryId()
     this.selectedDay = this.$route.params.selectedDay
     if (this.diaryId != -1) {
-        this.diaryContent = this.diary[this.diaryId]?.post_content
-        this.selectedImage = this.diary[this.diaryId]?.post_upload_image
-        this.selectedEmoji = this.diary[this.diaryId]?.post_emoji
+        this.diaryContent = this.$store.state.diary[this.diaryId]?.post_content
+        this.selectedImage = this.$store.state.diary[this.diaryId]?.post_upload_image
+        this.selectedEmoji = this.$store.state.diary[this.diaryId]?.post_emoji
     }
   },
 };
