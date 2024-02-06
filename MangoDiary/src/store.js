@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import data from './data/data.js'
+import statisticsData from './data/statistic.js'
 
 const STATISTICS_ROUTE = '/statistics'
 const CALENDAR_ROUTE = '/calendar'
@@ -13,6 +14,7 @@ const store = createStore({
     state() {
         return {
             diary : data,
+            statisticsData : statisticsData,
             statistics : STATISTICS_ROUTE,
             calendar : CALENDAR_ROUTE,
             write : WRITE_ROUTE,
@@ -27,43 +29,6 @@ const store = createStore({
             moodEmojis: EMOJIS,
             prefix: PREFIX,
             diaryId: 0,
-            statisticsData: [
-                {
-                    month: '화나는 달',
-                    name: '화남',
-                    emoji: 'angry',
-                    count: 18,
-                    comment: "어려움과 화남을 뒤로하고, 새로운 달을 긍정적으로 맞이해봐요"
-                },
-                {
-                    month: '우울한 달',
-                    name: '우울',
-                    emoji: 'depressed',
-                    count: 12,
-                    comment: "어려움과 우울함을 뒤로하고, 새로운 달을 긍정적으로 맞이해봐요"
-                },
-                {
-                    month: '기쁜 달',
-                    name: '기쁨',
-                    emoji: 'pleased',
-                    count: 0,
-                    comment: "좋았던 이번 달처럼, 새로운 달을 긍정적으로 맞이해봐요"
-                },
-                {
-                    month: '행복한 달',
-                    name: '행복',
-                    emoji: 'happy',
-                    count: 0,
-                    comment: "행복했던 이번 달처럼, 새로운 달을 긍정적으로 맞이해봐요"
-                },
-                {
-                    month: '슬픈 달',
-                    name: '슬픔',
-                    emoji: 'sad',
-                    count: 0,
-                    comment: "어려움과 슬픔을 뒤로하고, 새로운 달을 긍정적으로 맞이해봐요"
-                },
-            ]
         }
     },
     mutations: {
