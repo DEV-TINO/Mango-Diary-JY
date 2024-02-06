@@ -12,7 +12,7 @@ const PREFIX = ['colored', 'grey']
 const store = createStore({
     state() {
         return {
-            diary  : data,
+            diary : data,
             statistics : STATISTICS_ROUTE,
             calendar : CALENDAR_ROUTE,
             write : WRITE_ROUTE,
