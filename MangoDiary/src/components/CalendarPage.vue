@@ -58,9 +58,10 @@ export default {
       const firstDay = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth - 1, 1).getDay();
       const daysInMonth = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth, 0).getDate();
       const row = 7;
-      const col = 6;
+      let col = 5;
       const calendar = [];
       let dayCount = 1;
+      if ((firstDay + daysInMonth) > 35) col = 6
       for (let i = 0; i < col; i++) {
         const week = []
         for (let j = 0; j < row; j++) {
