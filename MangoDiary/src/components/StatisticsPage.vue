@@ -26,11 +26,11 @@
         </div>
       </div>
       <table class="statistic-table">
-        <tr v-for="index in 4" :key="index">
+        <tr v-for="statisticsData in this.$store.state.statisticsData.slice(1)" :key="statisticsData">
           <td>
-            <img :src="getEmojiPath(index)" class="selected-image">
+            <img :src="getEmojiPath(statisticsData)" class="selected-image">
           </td>
-          <td class="emoji-details">{{ this.$store.state.statisticsData[index]?.name }} 망고 {{ this.$store.state.statisticsData[index]?.count }}개</td>
+          <td class="emoji-details">{{ statisticsData.name }} 망고 {{ statisticsData.count }}개</td>
         </tr>
       </table>
     </div>
@@ -56,9 +56,9 @@ export default {
     goToCalendar() {
       this.$router.push(this.$store.state.calendar)
     },
-    getEmojiPath(index) {
-      if (this.$store.state.statisticsData[index]?.count > 0) return `/images/colored/${this.$store.state.statisticsData[index].emoji}.jpg`
-      return `/images/grey/${this.$store.state.statisticsData[index]?.emoji}.jpg`
+    getEmojiPath(data) {
+      if (data.count > 0) return `/images/colored/${data.emoji}.jpg`
+      return `/images/grey/${data.emoji}.jpg`
     }
   },
   mounted() {
