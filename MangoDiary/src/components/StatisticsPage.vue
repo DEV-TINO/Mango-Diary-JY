@@ -17,7 +17,7 @@
       </div>
     </header>
     <div>
-      <div :class="isEmojiExist()">
+      <div class="most-selected-container" v-if="this.$store.state.statisticsData[0]?.count > 0">
         <img :src="getMostSelectedEmojiPath()" class="most-selected-emoji">
         <div class="left-align-content">
           <h4 class="selected-month">{{ this.$store.state.statisticsData[0]?.month }}</h4>
@@ -25,8 +25,17 @@
           <p class="detail">{{ this.$store.state.statisticsData[0]?.comment }}</p>
         </div>
       </div>
+      <div v-else>
+        <h4 class="message">선택된 감정이 없습니다</h4>    
+      </div>
       <table class="statistic-table">
-        <tr v-for="statisticsData in this.$store.state.statisticsData.slice(1)" :key="statisticsData">
+        <tr v-if="this.$store.state.statisticsData[0]?.count == 0" v-for="statisticsData in this.$store.state.statisticsData">
+          <td>
+            <img :src="getEmojiPath(statisticsData)" class="selected-image">
+          </td>
+          <td class="emoji-details">{{ statisticsData.name }} 망고 {{ statisticsData.count }}개</td>
+        </tr>
+        <tr v-else v-for="statisticsData in this.$store.state.statisticsData.slice(1)">
           <td>
             <img :src="getEmojiPath(statisticsData)" class="selected-image">
           </td>
@@ -59,8 +68,7 @@ export default {
       return `/images/grey/${data.emoji}.jpg`
     },
     getMostSelectedEmojiPath() {
-      if (this.$store.state.statisticsData[0]?.count > 0) return `/images/colored/${this.$store.state.statisticsData[0]?.emoji}.jpg`
-      return `/images/grey/${this.$store.state.statisticsData[0]?.emoji}.jpg`
+      return `/images/colored/${this.$store.state.statisticsData[0].emoji}.jpg`
     },
     handleClickChangeMonth(monthSet) {
       this.$store.commit('setSelectedMonth', this.$store.state.selectedMonth + monthSet)
@@ -73,10 +81,6 @@ export default {
       }
       this.$store.commit('updateStatistic')
     },
-    isEmojiExist() {
-      if(this.$store.state.statisticsData[0]?.count == 0) return 'no-emoji-exist'
-      return 'most-selected-container'
-    }
   },
   mounted() {
     this.$store.commit('getToday')
@@ -179,17 +183,6 @@ export default {
   width: 350px;
   height: 150px;
 }
-.no-emoji-exist {
-  margin-top: 35px;
-  display: flex;
-  justify-content: space-evenly;
-  margin-left: 17px;
-  margin-bottom: 25px;
-  border: 2px solid rgb(204, 204, 204);
-  border-radius: 10px;
-  width: 350px;
-  height: 150px;
-}
 .left-align-content{
   text-align: left;
 }
@@ -215,6 +208,21 @@ export default {
   margin-top: -5px;
   font-family: 'HCRDotum';
   margin-right: 5px;
+}
+.message {
+  margin-top: 50px;
+  margin-left: 17px;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  border: 2px solid rgb(255, 200, 0);
+  width: 350px;
+  height: 60px;
+  font-size: 20px;
+  color: rgb(90, 55, 22);
+  font-family: 'HCRDotum';
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .statistic-table {
   margin-left: 20px;
