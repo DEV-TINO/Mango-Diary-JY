@@ -4,7 +4,7 @@
       <img src="/images/logo.png" class="logo">
       <div class="select-month">
         <div class="left-select-month">
-          <font-awesome-icon icon="chevron-left" class="last-month"/>
+          <font-awesome-icon icon="chevron-left" class="last-month" @click="handleClickChangeMonth(-1)"/>
           <div class="month-block">
             <div class="month-name"><b>{{ this.$store.state.selectedMonth }}</b></div>
             <div class="year-block">
@@ -13,7 +13,7 @@
             </div>
           </div>
         </div>
-        <font-awesome-icon icon="chevron-right" class="next-month"/>
+        <font-awesome-icon icon="chevron-right" class="next-month" @click="handleClickChangeMonth(1)"/>
       </div>
     </header>
     <div>
@@ -59,7 +59,17 @@ export default {
     getEmojiPath(data) {
       if (data.count > 0) return `/images/colored/${data.emoji}.jpg`
       return `/images/grey/${data.emoji}.jpg`
-    }
+    },
+    handleClickChangeMonth(monthSet) {
+      this.$store.commit('setSelectedMonth', this.$store.state.selectedMonth + monthSet)
+      if ((this.$store.state.selectedMonth + monthSet) < 0) {
+        this.$store.commit('decreaseSelectedYear')
+        this.$store.state.selectedMonth = 12
+      } else if ((this.$store.state.selectedMonth + monthSet) > 13) {
+        this.$store.commit('increaseSelectedYear')
+        this.$store.state.selectedMonth = 1
+      }
+    },
   },
   mounted() {
     this.$store.commit('getToday')
@@ -96,7 +106,7 @@ export default {
   margin-top: 15px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: end;
 }
 .last-month {
@@ -105,6 +115,7 @@ export default {
   color: rgb(145, 145, 145);
 }
 .next-month {
+  margin-left: 10px;
   margin-right: 110px;
   margin-bottom: 13px;
   cursor: pointer;
@@ -113,8 +124,7 @@ export default {
 .month-block {
   display: flex;
   flex-direction: row;
-  align-items: end;
-  margin-left: 18px;
+  align-items: center;
 }
 .left-select-month {
   margin-left: 100px;
@@ -142,6 +152,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 7px;
 }
 .most-selected-emoji{
   margin-top: 20px;
