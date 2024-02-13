@@ -3,14 +3,14 @@ const statisticsData = [
         month: '화나는 달',
         name: '화남',
         emoji: 'angry',
-        count: 18,
+        count: 0,
         comment: "어려움과 화남을 뒤로하고, 새로운 달을 긍정적으로 맞이해봐요"
     },
     {
         month: '우울한 달',
         name: '우울',
         emoji: 'depressed',
-        count: 12,
+        count: 0,
         comment: "어려움과 우울함을 뒤로하고, 새로운 달을 긍정적으로 맞이해봐요"
     },
     {
