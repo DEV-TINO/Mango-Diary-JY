@@ -34,6 +34,7 @@
     <footer class="menu-bar">
         <div @click="handleClickWriteDiary(this.$store.state.today)" class="write-button">
           <font-awesome-icon icon="plus" />
+          <div class="bottom-write-button">today</div>
         </div>
         <div class="banner">MANGO</div>
         <div class="icon" @click="goToStatistics()">
@@ -284,11 +285,15 @@ export default {
   cursor: pointer;
 }
 .write-button {
-  font-size: 26px;
+  font-size: 23px;
   color: white;
-  margin-right: 65px;
-  margin-bottom: 4px;
+  margin-right: 60px;
+  margin-left: -6px;
   cursor: pointer;
+}
+.bottom-write-button{
+  margin-top: -5px;
+  font-size: 13px;
 }
 .banner {
   font-family: 'HCRDotum';

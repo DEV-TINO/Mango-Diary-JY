@@ -3,7 +3,7 @@
     <header class="button-container">
       <font-awesome-icon class="header-button-left" @click="handleClickMoveCalendar()" icon="chevron-left" />
       <img src="/images/logo.png" class="logo">
-      <font-awesome-icon class="header-button-right" @click="submit()" icon="check" />
+      <font-awesome-icon class="header-button-right" @click="submit()" icon="fa-floppy-disk" />
     </header>
     <div>
       <div>
@@ -146,9 +146,9 @@ export default {
 }
 .header-button-right {
   margin-top: 45px;
-  margin-left: 10px;
+  margin-left: 5px;
   margin-right: -10px;
-  font-size: 20px;
+  font-size: 25px;
   color: rgb(90, 55, 22);
 }
 .mood-list{
