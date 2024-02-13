@@ -7,7 +7,6 @@ const CALENDAR_ROUTE = '/calendar'
 const WRITE_ROUTE = '/write'
 const WEEK_NAMES = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-const EMOJIS = ['angry','depressed','pleased','happy','sad']
 const PREFIX = ['colored', 'grey']
 
 const store = createStore({
@@ -26,7 +25,6 @@ const store = createStore({
             date: 0,
             dayNames: WEEK_NAMES,
             monthNames: MONTH_NAMES,
-            moodEmojis: EMOJIS,
             prefix: PREFIX,
             diaryId: 0,
         }

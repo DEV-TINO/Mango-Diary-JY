@@ -8,8 +8,11 @@
     <div>
       <div>
         <h3 class="emotion">Emotion</h3>
-        <div>
-          <img v-for="(emoji, index) in $store.state.moodEmojis" :key="index" :src="getEmojiImagePath(emoji)" @click="selectEmoji(emoji)" class="mood-list">
+        <div class="emoji-box">
+          <div v-for="(emoji, index) in this.$store.state.statisticsData" :key="index">
+            <img :src="getEmojiImagePath(emoji.emoji)" @click="selectEmoji(emoji.emoji)" class="mood-list">
+            <div class="emoji-name">{{ emoji.name }}</div>
+          </div>
         </div>
       </div>
       <h3 class="note">Note</h3>
@@ -151,13 +154,23 @@ export default {
   font-size: 25px;
   color: rgb(90, 55, 22);
 }
-.mood-list{
+.emoji-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.mood-list {
   width: 58px;
   height: auto;
   margin-inline: 7px;
   cursor: pointer;
 }
-.selected-image{
+.emoji-name {
+  font-size: 15px;
+  font-family: 'HCRDotum';
+  color: rgb(90, 55, 22);
+}
+.selected-image {
   width: 354px;
   height: 140px;
   border-radius: 5px;
