@@ -17,8 +17,8 @@
       </div>
     </header>
     <div>
-      <div class="most-selected-container">
-        <img src="/images/colored/angry.jpg" class="most-selected-emoji">
+      <div :class="isEmojiExist()">
+        <img :src="getMostSelectedEmojiPath()" class="most-selected-emoji">
         <div class="left-align-content">
           <h4 class="selected-month">{{ this.$store.state.statisticsData[0]?.month }}</h4>
           <p class="detail">{{ this.$store.state.statisticsData[0]?.name }} 망고 {{ this.$store.state.statisticsData[0]?.count }}개</p>
@@ -51,14 +51,16 @@ export default {
     }
   },
   methods: {
-    updateStatistics() {
-    },
     goToCalendar() {
       this.$router.push(this.$store.state.calendar)
     },
     getEmojiPath(data) {
       if (data.count > 0) return `/images/colored/${data.emoji}.jpg`
       return `/images/grey/${data.emoji}.jpg`
+    },
+    getMostSelectedEmojiPath() {
+      if (this.$store.state.statisticsData[0]?.count > 0) return `/images/colored/${this.$store.state.statisticsData[0]?.emoji}.jpg`
+      return `/images/grey/${this.$store.state.statisticsData[0]?.emoji}.jpg`
     },
     handleClickChangeMonth(monthSet) {
       this.$store.commit('setSelectedMonth', this.$store.state.selectedMonth + monthSet)
@@ -69,10 +71,16 @@ export default {
         this.$store.commit('increaseSelectedYear')
         this.$store.state.selectedMonth = 1
       }
+      this.$store.commit('updateStatistic')
     },
+    isEmojiExist() {
+      if(this.$store.state.statisticsData[0]?.count == 0) return 'no-emoji-exist'
+      return 'most-selected-container'
+    }
   },
   mounted() {
     this.$store.commit('getToday')
+    this.$store.commit('updateStatistic')
   },
 }
 </script>
@@ -156,8 +164,9 @@ export default {
 }
 .most-selected-emoji{
   margin-top: 20px;
-  width:140px;
+  width: 140px;
   height: 110px;
+  margin-right: 3px;
 }
 .most-selected-container{
   margin-top: 35px;
@@ -166,6 +175,17 @@ export default {
   margin-left: 17px;
   margin-bottom: 25px;
   border: 2px solid rgb(255, 200, 0);
+  border-radius: 10px;
+  width: 350px;
+  height: 150px;
+}
+.no-emoji-exist {
+  margin-top: 35px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 17px;
+  margin-bottom: 25px;
+  border: 2px solid rgb(204, 204, 204);
   border-radius: 10px;
   width: 350px;
   height: 150px;

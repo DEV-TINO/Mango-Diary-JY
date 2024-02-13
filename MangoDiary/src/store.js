@@ -55,6 +55,21 @@ const store = createStore({
         decreaseSelectedYear(state) {
             state.selectedYear--
         },
+        updateStatistic(state) {
+            for (let i = 0; i < state.statisticsData.length; i++) {
+                state.statisticsData[i].count = 0;
+            }
+            for (let i = 0; i < state.diary.length; i++) {
+                if (state.diary[i] && state.diary[i].post_month == state.selectedMonth && state.diary[i].post_year == state.selectedYear) {
+                    for (let j = 0; j < state.statisticsData.length; j++) {
+                        if (state.diary[i].post_emoji == state.statisticsData[j].emoji) {
+                            state.statisticsData[j].count++
+                        }
+                    }
+                }
+            }
+            state.statisticsData.sort((a, b) => b.count - a.count)
+        }
     },
     actions: {
     }
