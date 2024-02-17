@@ -22,7 +22,7 @@
         <div class="left-align-content">
           <h4 class="selected-month">{{ this.$store.state.statisticsData[0]?.month }}</h4>
           <p class="detail">{{ this.$store.state.statisticsData[0]?.name }} 망고 {{ this.$store.state.statisticsData[0]?.count }}개</p>
-          <p class="detail">{{ this.$store.state.statisticsData[0]?.comment }}</p>
+          <p class="detail" style="white-space: pre-line;">{{ this.$store.state.statisticsData[0]?.comment }}</p>
         </div>
       </div>
       <div v-else>
