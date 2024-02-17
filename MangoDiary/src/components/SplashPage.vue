@@ -20,8 +20,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 844px;
-  width: 390px;
+  height: 100vh;
+  width: 100vw;
+  margin: -8px;
 }
 .logo {
   margin-top: 200px;

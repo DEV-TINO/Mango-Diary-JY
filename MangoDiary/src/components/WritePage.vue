@@ -131,8 +131,9 @@ export default {
 }
 .write-page {
   text-align: center;
-  height: 844px;
-  width: 390px;
+  height: 100vh;
+  width: 100vw;
+  margin: -8px;
   position: relative;
 }
 .logo {

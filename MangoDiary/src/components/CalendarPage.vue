@@ -151,9 +151,10 @@ export default {
 }
 .calendar-page {
   text-align: center;
-  height: 844px;
-  width: 390px;
+  height: 100vh;
+  width: 100vw;
   position: relative;
+  margin: -8px;
 }
 .logo {
   margin-top: 16px;
