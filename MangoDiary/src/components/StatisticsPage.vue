@@ -26,7 +26,7 @@
         </div>
       </div>
       <div v-else>
-        <h4 class="message">선택된 감정이 없습니다</h4>    
+        <h4 class="message">선택된 감정이 없습니다</h4>
       </div>
       <table class="statistic-table">
         <tr v-if="this.$store.state.statisticsData[0]?.count == 0" v-for="statisticsData in this.$store.state.statisticsData">
