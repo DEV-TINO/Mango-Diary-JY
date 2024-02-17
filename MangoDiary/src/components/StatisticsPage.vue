@@ -117,27 +117,28 @@ export default {
 }
 .select-month {
   margin-top: 15px;
+  margin-right: 100px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: end;
 }
 .last-month {
-  margin-top: 22px;
+  margin-left: 5px;
+  margin-top: 32px;
   cursor: pointer;
   color: rgb(145, 145, 145);
 }
 .next-month {
-  margin-left: 10px;
-  margin-right: 110px;
-  margin-bottom: 13px;
+  margin-right: 5px;
+  margin-bottom: 2px;
   cursor: pointer;
   color: rgb(145, 145, 145);
 }
 .month-block {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: end;
 }
 .left-select-month {
   margin-left: 100px;
