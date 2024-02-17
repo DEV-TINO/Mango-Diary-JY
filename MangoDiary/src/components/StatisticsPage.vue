@@ -209,6 +209,7 @@ export default {
   margin-top: -5px;
   font-family: 'HCRDotum';
   margin-right: 5px;
+  line-height: 1.5;
 }
 .message {
   margin-top: 50px;
