@@ -1,9 +1,9 @@
 <template>
   <div class="write-page">
     <header class="button-container">
-      <font-awesome-icon class="header-button-left" @click="handleClickMoveCalendar()" icon="chevron-left" />
+      <div class="header-button-left" @click="handleClickMoveCalendar()">PREV</div>
       <img src="/images/logo.png" class="logo">
-      <font-awesome-icon class="header-button-right" @click="submit()" icon="fa-floppy-disk" />
+      <div class="header-button-right" @click="submit()">NEXT</div>
     </header>
     <div>
       <div>
@@ -137,17 +137,19 @@ export default {
   height: auto;
 }
 .header-button-left {
+  font-family: 'HCRDotum';
   margin-top: 45px;
   margin-left: -10px;
-  margin-right: 15px;
-  font-size: 20px;
+  margin-right: 10px;
+  font-size: 18px;
   color: rgb(90, 55, 22);
 }
 .header-button-right {
+  font-family: 'HCRDotum';
   margin-top: 45px;
-  margin-left: 5px;
+  margin-left: 10px;
   margin-right: -10px;
-  font-size: 25px;
+  font-size: 18px;
   color: rgb(90, 55, 22);
 }
 .emoji-box {
