@@ -25,7 +25,7 @@
       <div class="week" v-for="week in calendar" :key="week">
         <div class="day" v-for="day in week" :key="day">
           {{ showDay(day) }}
-          <div class="day-container" :class="changePointer(day)" @click="day != null && handleClickWriteDiary(day)">
+          <div class="day-container" :class="changePointer(day)" @click="handleClickWriteDiary(day)">
             <img class="emoji" :src="getSelectedEmojiPath(day)">
           </div>
         </div>
@@ -99,6 +99,7 @@ export default {
       return selectedDate > this.$store.state.date
     },
     handleClickWriteDiary(day) {
+      if (day == null) return
       if(this.isFutureDate(day)) {
         alert("미래의 기분은 알 수 없습니다")
         return
