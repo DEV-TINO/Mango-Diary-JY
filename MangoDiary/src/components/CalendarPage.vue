@@ -32,7 +32,7 @@
       </div>
     </div>
     <footer class="menu-bar">
-        <div @click="handleClickWriteDiary(this.$store.state.today)" class="write-button">
+        <div @click="handleClickWriteTodayDiary()" class="write-button">
           <font-awesome-icon icon="plus" />
           <div class="bottom-write-button">today</div>
         </div>
@@ -106,6 +106,13 @@ export default {
       this.$router.push({
         path: `${this.$store.state.write}/${day}`,
         state: { diaryId: this.getDiaryId(day) }
+      });
+    },
+    handleClickWriteTodayDiary() {
+      this.$store.commit('getToday')
+      this.$router.push({
+        path: `${this.$store.state.write}/${this.$store.state.today}`,
+        state: { diaryId: this.getDiaryId(this.$store.state.today) }
       });
     },
     goToStatistics() {
