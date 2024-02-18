@@ -11,7 +11,7 @@
             <div class="month-name"><b>{{ this.$store.state.selectedMonth }}</b></div>
             <div class="year-block">
               <div class="year">{{ this.$store.state.selectedYear }}</div>
-              <div class="month">{{ this.$store.state.monthNames[this.$store.state.selectedMonth - 1] }}</div>
+              <div class="month">{{ this.$store.state.monthNames?.[this.$store.state.selectedMonth - 1] ?? "" }}</div>
             </div>
           </div>
         </div>

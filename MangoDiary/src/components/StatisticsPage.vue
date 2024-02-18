@@ -9,7 +9,7 @@
             <div class="month-name"><b>{{ this.$store.state.selectedMonth }}</b></div>
             <div class="year-block">
               <div class="year">{{ this.$store.state.selectedYear }}</div>
-              <div class="month">{{ this.$store.state.monthNames[this.$store.state.selectedMonth - 1] }}</div>
+              <div class="month">{{ this.$store.state.monthNames?.[this.$store.state.selectedMonth - 1] ?? "" }}</div>
             </div>
           </div>
         </div>
@@ -17,12 +17,12 @@
       </div>
     </header>
     <div>
-      <div class="most-selected-container" v-if="this.$store.state.statisticsData[0]?.count > 0">
+      <div class="most-selected-container" v-if="this.$store.state.statisticsData[0]?.count ?? 0 > 0">
         <img :src="getMostSelectedEmojiPath()" class="most-selected-emoji">
         <div class="left-align-content">
-          <h4 class="selected-month">{{ this.$store.state.statisticsData[0]?.month }}</h4>
-          <p class="detail">{{ this.$store.state.statisticsData[0]?.name }} 망고 {{ this.$store.state.statisticsData[0]?.count }}개</p>
-          <p class="detail" style="white-space: pre-line;">{{ this.$store.state.statisticsData[0]?.comment }}</p>
+          <h4 class="selected-month">{{ this.$store.state.statisticsData[0]?.month ?? "" }}</h4>
+          <p class="detail">{{ this.$store.state.statisticsData[0]?.name ?? "" }} 망고 {{ this.$store.state.statisticsData[0]?.count ?? 0 }}개</p>
+          <p class="detail" style="white-space: pre-line;">{{ this.$store.state.statisticsData[0]?.comment ?? "" }}</p>
         </div>
       </div>
       <div v-else>
@@ -33,13 +33,13 @@
           <td>
             <img :src="getEmojiPath(statisticsData)" class="selected-image">
           </td>
-          <td class="emoji-details">{{ statisticsData.name }} 망고 {{ statisticsData.count }}개</td>
+          <td class="emoji-details">{{ statisticsData?.name ?? "" }} 망고 {{ statisticsData?.count ?? 0 }}개</td>
         </tr>
         <tr v-else v-for="statisticsData in this.$store.state.statisticsData.slice(1)">
           <td>
             <img :src="getEmojiPath(statisticsData)" class="selected-image">
           </td>
-          <td class="emoji-details">{{ statisticsData.name }} 망고 {{ statisticsData.count }}개</td>
+          <td class="emoji-details">{{ statisticsData?.name ?? "" }} 망고 {{ statisticsData?.count ?? 0 }}개</td>
         </tr>
       </table>
     </div>
