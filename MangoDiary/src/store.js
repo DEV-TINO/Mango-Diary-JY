@@ -2,9 +2,11 @@ import { createStore } from 'vuex';
 import data from './data/data.js'
 import statisticsData from './data/statistic.js'
 
-const STATISTICS_ROUTE = '/statistics'
-const CALENDAR_ROUTE = '/calendar'
-const WRITE_ROUTE = '/write'
+const ROUTES = {
+    statistics: '/statistics',
+    calendar: '/calendar',
+    write: '/write',
+}
 const WEEK_NAMES = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 const PREFIX = ['colored', 'grey']
@@ -14,9 +16,9 @@ const store = createStore({
         return {
             diary : data,
             statisticsData : statisticsData,
-            statistics : STATISTICS_ROUTE,
-            calendar : CALENDAR_ROUTE,
-            write : WRITE_ROUTE,
+            statistics : ROUTES.statistics,
+            calendar : ROUTES.calendar,
+            write : ROUTES.write,
             selectedYear: 0,
             selectedMonth: 0,
             currentYear: 0,
