@@ -83,9 +83,7 @@ export default {
           parseInt(entry.post_month) == this.$store.state.selectedMonth &&
           parseInt(entry.post_date) == day
       );
-      return matchingDiaryEntries.length > 0
-        ? matchingDiaryEntries[0]?.post_id
-        : -1
+      return matchingDiaryEntries.length > 0 ? matchingDiaryEntries[0]?.post_id : -1
     },
     getSelectedEmojiPath(day) {
       const diaryId = this.getDiaryId(day)
