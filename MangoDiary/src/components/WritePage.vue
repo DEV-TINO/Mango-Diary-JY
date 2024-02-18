@@ -25,7 +25,9 @@
             <font-awesome-icon class="add-image" icon="plus" />
           </div>
         </div>
-        <img class="selected-image" v-else :src="selectedImage">
+        <div class="image-block" v-else>
+          <img class="selected-image" :src="selectedImage">
+        </div>
       </label>
       <input
         id="imageInput"
@@ -169,10 +171,15 @@ export default {
   font-family: 'HCRDotum';
   color: rgb(90, 55, 22);
 }
-.selected-image {
+.image-block {
   width: 354px;
   height: 140px;
   border-radius: 5px;
+  border: 2px solid rgb(90, 55, 22);
+}
+.selected-image {
+  width: auto;
+  height: 140px;
   cursor: pointer;
 }
 .diary-box {
