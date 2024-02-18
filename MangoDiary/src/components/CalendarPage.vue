@@ -46,12 +46,14 @@
 
 <script>
 export default {
+  data() {
+    return {
+      calendar: [],
+    };
+  },
   computed: {
     yearRange() {
         return Array.from({ length: 10 }, (_, index) => this.$store.state.currentYear - index)
-    },
-    calendar() {
-      return this.generateCalendar()
     },
   },
   methods: {
@@ -75,6 +77,9 @@ export default {
         calendar.push(week)
       }
       return calendar
+    },
+    updateCalendar() {
+      this.calendar = this.generateCalendar()
     },
     getDiaryId(day) {
       const matchingDiaryEntries = this.$store.state.diary.filter(
@@ -137,6 +142,7 @@ export default {
   },
   mounted() {
     this.$store.commit('getToday')
+    this.updateCalendar()
   },
 };
 </script>
