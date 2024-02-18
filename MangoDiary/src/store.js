@@ -49,9 +49,11 @@ const store = createStore({
         },
         increaseSelectedYear(state) {
             state.selectedYear++
+            state.selectedMonth = 1
         },
         decreaseSelectedYear(state) {
             state.selectedYear--
+            state.selectedMonth = 12
         },
         updateStatistic(state) {
             for (let i = 0; i < state.statisticsData.length; i++) {

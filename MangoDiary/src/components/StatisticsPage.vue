@@ -71,13 +71,12 @@ export default {
       return `/images/colored/${this.$store.state.statisticsData[0].emoji}.jpg`
     },
     handleClickChangeMonth(monthSet) {
-      this.$store.commit('setSelectedMonth', this.$store.state.selectedMonth + monthSet)
-      if ((this.$store.state.selectedMonth + monthSet) < 0) {
+      const selectMonth = this.$store.state.selectedMonth + monthSet
+      this.$store.commit('setSelectedMonth', selectMonth)
+      if ((selectMonth) < 1) {
         this.$store.commit('decreaseSelectedYear')
-        this.$store.state.selectedMonth = 12
-      } else if ((this.$store.state.selectedMonth + monthSet) > 13) {
+      } else if ((selectMonth) > 12) {
         this.$store.commit('increaseSelectedYear')
-        this.$store.state.selectedMonth = 1
       }
       this.$store.commit('updateStatistic')
     },
