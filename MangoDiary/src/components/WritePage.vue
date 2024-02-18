@@ -100,7 +100,7 @@ export default {
     getDiaryId() {
       const { diaryId } = history.state
       this.diaryId = diaryId
-      //https://velog.io/@yiwonjin/vue-router3-state객체로-페이지-사이-데이터-전달
+      // https://velog.io/@yiwonjin/vue-router3-state객체로-페이지-사이-데이터-전달
     },
     checkDate() {
       if (this.$store.state.selectedYear == 0 || this.$store.state.selectedMonth == 0) {
