@@ -66,23 +66,18 @@ export default {
       if (this.diaryId == -1) {
         this.$store.commit('setId')
         this.diaryId = this.$store.state.diaryId
-        this.setDiary(this.diaryId)
+        this.$store.commit('setDiary', {
+          id: this.diaryId,
+          day: this.selectedDay
+        })
       }
-      this.$store.state.diary[this.diaryId].post_content = this.diaryContent
-      this.$store.state.diary[this.diaryId].post_upload_image = this.selectedImage
-      this.$store.state.diary[this.diaryId].post_emoji = this.selectedEmoji
+      this.$store.commit('setDiaryEntry', {
+        id: this.diaryId,
+        content: this.diaryContent,
+        image: this.selectedImage,
+        emoji: this.selectedEmoji
+      });
       this.$router.push(this.$store.state.calendar)
-    },
-    setDiary(id) {
-      this.$store.state.diary[id] = {
-        post_id: id,
-        post_year: `${this.$store.state.selectedYear}`,
-        post_month: `${this.$store.state.selectedMonth}`,
-        post_date: `${this.selectedDay}`,
-        post_emoji: "",
-        post_content: "",
-        post_upload_image: null
-      }
     },
     getEmojiImagePath(emoji) {
       return `/images/${this.$store.state.prefix[this.selectedEmoji == emoji ? 0 : 1]}/${emoji}.jpg`

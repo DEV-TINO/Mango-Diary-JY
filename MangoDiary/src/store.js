@@ -55,6 +55,22 @@ const store = createStore({
             state.selectedYear--
             state.selectedMonth = 12
         },
+        setDiaryEntry(state, { id, content, image, emoji }) {
+            state.diary[id].post_content = content
+            state.diary[id].post_upload_image = image
+            state.diary[id].post_emoji = emoji
+        },
+        setDiary(state, { id, day }) {
+            state.diary[id] = {
+                post_id: id,
+                post_year: `${state.selectedYear}`,
+                post_month: `${state.selectedMonth}`,
+                post_date: `${day}`,
+                post_emoji: "",
+                post_content: "",
+                post_upload_image: null
+              }
+        },
         updateStatistic(state) {
             for (let i = 0; i < state.statisticsData.length; i++) {
                 state.statisticsData[i].count = 0;
