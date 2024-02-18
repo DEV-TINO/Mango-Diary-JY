@@ -32,14 +32,14 @@
       </div>
     </div>
     <footer class="menu-bar">
-        <div @click="handleClickWriteTodayDiary()" class="write-button">
-          <font-awesome-icon icon="plus" />
-          <div class="bottom-write-button">today</div>
-        </div>
-        <div class="banner">MANGO</div>
-        <div class="icon" @click="goToStatistics()">
-          <font-awesome-icon icon="chart-pie" />
-        </div>
+      <div class="icon" @click="goToStatistics()">
+        <font-awesome-icon icon="chart-pie" />
+      </div>
+      <div class="banner">MANGO</div>
+      <div @click="handleClickWriteTodayDiary()" class="write-button">
+        <font-awesome-icon icon="plus" />
+        <div class="bottom-write-button">today</div>
+      </div>
     </footer>
   </div>
 </template>
@@ -282,15 +282,17 @@ export default {
 .icon {
   font-size: 26px;
   color: white;
-  margin-left: 58px;
+  margin-right: 60px;
+  margin-left: -2px;
   margin-bottom: 2px;
   cursor: pointer;
 }
 .write-button {
+  margin-top: -3px;
+  margin-left: 58px;
+  margin-right: -4px;
   font-size: 23px;
   color: white;
-  margin-right: 60px;
-  margin-left: -6px;
   cursor: pointer;
 }
 .bottom-write-button{

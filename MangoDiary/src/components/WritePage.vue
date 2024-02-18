@@ -35,10 +35,11 @@
       >
     </div>
     <footer class="menu-bar">
-        <div class="banner">MANGO</div>
-        <div class="icon" @click="handleClickMoveStatistics()">
-          <font-awesome-icon icon="chart-pie" />
-        </div>
+      <div class="icon" @click="handleClickMoveStatistics()">
+        <font-awesome-icon icon="chart-pie" />
+      </div>
+      <div class="banner">MANGO</div>
+      <div class="save-button" @click="submit()">SAVE</div>
     </footer>
   </div>
 </template>
@@ -260,9 +261,8 @@ export default {
 .icon {
   font-size: 26px;
   color: white;
-  margin-left: 58px;
   margin-bottom: 2px;
-  margin-right: -88px;
+  margin-right: 60px;
   cursor: pointer;
 }
 .banner {
@@ -270,5 +270,12 @@ export default {
   font-size: 28px;
   margin-top: -3px;
   cursor: default;
+}
+.save-button {
+  font-family: 'HCRDotum';
+  cursor: default;
+  color: white;
+  margin-right: -8px;
+  margin-left: 58px;
 }
 </style>
