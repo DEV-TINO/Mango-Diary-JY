@@ -1,33 +1,33 @@
 <template>
   <div class="write-page">
     <header class="button-container">
-      <ul class="header-button-left">
-        <li @click="goToCalendar">prev</li>
-      </ul>
+      <div class="header-button-left" @click="handleClickMoveCalendar()">PREV</div>
       <img src="/images/logo.png" class="logo">
-      <ul class="header-button-right">
-        <li @click="submit">submit</li>
-      </ul>
+      <div class="header-button-right" @click="submit()">NEXT</div>
     </header>
-
     <div>
       <div>
-        <h3 class="title">오늘의 기분</h3>
-        <div>
-          <img v-for="(emoji, index) in $store.state.moodEmojis" :key="index" :src="getEmojiImagePath(emoji, index)" @click="selectEmoji(emoji, index)" class="mood-list">
+        <h3 class="emotion">Emotion</h3>
+        <div class="emoji-box">
+          <div v-for="(emoji, index) in this.$store.state.statisticsData" :key="index">
+            <img :src="getEmojiImagePath(emoji.emoji)" @click="selectEmoji(emoji.emoji)" class="mood-list">
+            <div class="emoji-name">{{ emoji.name }}</div>
+          </div>
         </div>
       </div>
-
-      <h3 class="title">오늘의 일기</h3>
-      <h4 class="date">{{ $store.state.selectedYear }}년 {{ $store.state.selectedMonth }}월 {{ selectedDay }}일</h4>
-      <textarea class="diary-box" v-model="diaryContent" placeholder="오늘 하루는 무엇을 했나요?" maxlength="200"></textarea>
-
+      <h3 class="note">Note</h3>
+      <h4 class="date">{{ $store.state.selectedYear }} / {{ $store.state.selectedMonth }} / {{ selectedDay }}</h4>
+      <textarea class="diary-box" v-model="diaryContent" placeholder="오늘 하루는 어땠나요?" maxlength="200"></textarea>
       <label for="imageInput" class="input-container">
         <div class="input-block" v-if="!selectedImage">
-          <label for="imageInput">+</label>
-          <label>Upload Image</label>
+          <div>
+            <font-awesome-icon icon="far fa-images" />
+            <font-awesome-icon class="add-image" icon="plus" />
+          </div>
         </div>
-        <img class="selected-image" v-else :src="selectedImage">
+        <div class="image-block" v-else>
+          <img class="selected-image" :src="selectedImage">
+        </div>
       </label>
       <input
         id="imageInput"
@@ -37,7 +37,11 @@
       >
     </div>
     <footer class="menu-bar">
-      <div @click="goToStatistics">통계</div>
+      <div class="icon" @click="handleClickMoveStatistics()">
+        <font-awesome-icon icon="chart-pie" />
+      </div>
+      <div class="banner">MANGO</div>
+      <div class="save-button" @click="submit()">SAVE</div>
     </footer>
   </div>
 </template>
@@ -49,41 +53,85 @@ export default {
       diaryContent: '',
       selectedImage: null,
       selectedDay: null,
+      diaryId: 0,
+      selectedEmoji: null,
     };
   },
   methods: {
-    goToCalendar() {
+    handleClickMoveCalendar() {
       this.$router.push(this.$store.state.calendar)
     },
     submit() {
+      if(this.selectedEmoji == null) {
+        alert("반드시 감정을 선택해야 합니다")
+        return
+      }
+      if (this.diaryId == -1) {
+        this.$store.commit('setId')
+        this.diaryId = this.$store.state.diaryId
+        this.$store.commit('setDiary', {
+          id: this.diaryId,
+          day: this.selectedDay
+        })
+      }
+      this.$store.commit('setDiaryEntry', {
+        id: this.diaryId,
+        content: this.diaryContent,
+        image: this.selectedImage,
+        emoji: this.selectedEmoji
+      });
       this.$router.push(this.$store.state.calendar)
     },
-    getEmojiImagePath(emoji, index) {
-      return `/images/${this.$store.state.prefix[this.$store.state.selectedEmojiIndex == index ? 0 : 1]}/${emoji}.jpg`
+    getEmojiImagePath(emoji) {
+      return `/images/${this.$store.state.prefix[this.selectedEmoji == emoji ? 0 : 1]}/${emoji}.jpg`
     },
-    selectEmoji(emoji, index) {
-      this.$store.state.selectedEmoji = `/images/${this.$store.state.prefix[0]}/${emoji}.jpg`;
-      this.$store.state.selectedEmojiIndex = index;
+    selectEmoji(emoji) {
+      this.selectedEmoji = emoji
     },
     handleImageUpload(event) {
-      const file = event.target.files;
+      const file = event.target.files
       this.selectedImage = URL.createObjectURL(file[0])
     },
-    goToStatistics() {
+    handleClickMoveStatistics() {
       this.$router.push(this.$store.state.statistics)
     },
+    getDiaryId() {
+      const { diaryId } = history.state
+      this.diaryId = diaryId
+      // https://velog.io/@yiwonjin/vue-router3-state객체로-페이지-사이-데이터-전달
+    },
+    checkDate() {
+      if (this.$store.state.selectedYear == 0 || this.$store.state.selectedMonth == 0) {
+        alert("날짜 오류로 인해 캘린더 페이지로 이동합니다")
+        this.$router.push(this.$store.state.calendar)
+      }
+    }
   },
   mounted() {
-    this.selectedDay = this.$route.params.selectedDay;
+    this.checkDate()
+    this.getDiaryId()
+    this.selectedDay = this.$route.params.selectedDay
+    if (this.diaryId != -1) {
+        this.diaryContent = this.$store.state.diary[this.diaryId]?.post_content
+        this.selectedImage = this.$store.state.diary[this.diaryId]?.post_upload_image
+        this.selectedEmoji = this.$store.state.diary[this.diaryId]?.post_emoji
+    }
   },
 };
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'HCRDotum';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/HCRDotum.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 .write-page {
   text-align: center;
   height: 844px;
   width: 390px;
+  margin: -8px;
   position: relative;
 }
 .logo {
@@ -92,62 +140,107 @@ export default {
   height: auto;
 }
 .header-button-left {
-  float: left;
-  width: 50px;
-  margin-top: 40px;
-  margin-left: -45px;
-  margin-right: 45px;
-  font-size: 20px;
-  list-style-type: none;
-}
-.header-button-right {
-  float: right;
-  width: 50px;
-  margin-top: 40px;
+  font-family: 'HCRDotum';
+  margin-top: 45px;
   margin-left: -10px;
   margin-right: 10px;
-  font-size: 20px;
-  list-style-type: none;
+  font-size: 18px;
+  color: rgb(90, 55, 22);
 }
-.mood-list{
+.header-button-right {
+  font-family: 'HCRDotum';
+  margin-top: 45px;
+  margin-left: 10px;
+  margin-right: -10px;
+  font-size: 18px;
+  color: rgb(90, 55, 22);
+}
+.emoji-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.mood-list {
   width: 58px;
   height: auto;
   margin-inline: 7px;
+  cursor: pointer;
 }
-.selected-image{
+.emoji-name {
+  font-size: 15px;
+  font-family: 'HCRDotum';
+  color: rgb(90, 55, 22);
+}
+.image-block {
   width: 354px;
   height: 140px;
+  border-radius: 5px;
+  border: 2px solid rgb(90, 55, 22);
+}
+.selected-image {
+  width: auto;
+  height: 140px;
+  cursor: pointer;
 }
 .diary-box {
   margin-top: -10px;
   width: 350px;
   height: 250px;
   resize: none;
+  font-size: 20px;
+  font-family: 'HCRDotum';
+  border: 2px solid rgb(90, 55, 22);
+  border-radius: 5px;
+  outline-color: rgb(255, 200, 0);
 }
 .button-container {
   display: flex;
   justify-content: space-evenly;
 }
-.title {
-  text-align: left;
+.emotion {
+  height: 30px;
+  width: 100px;
   margin-top: 30px;
   margin-left: 13px;
+  margin-bottom: 15px;
+  font-family: 'HCRDotum';
+  background-color: rgb(250, 166, 0);
+  border-radius: 30px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.note {
+  height: 30px;
+  width: 65px;
+  margin-top: 20px;
+  margin-left: 13px;
   margin-bottom: 10px;
+  font-family: 'HCRDotum';
+  background-color: rgb(250, 166, 0);
+  border-radius: 30px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .date {
-  margin-top: auto;
-  margin-left: 17px;
+  margin-top: -3px;
+  margin-left: 18px;
+  margin-bottom: 20px;
   text-align: left;
+  color: rgb(90, 55, 22);
 }
 .menu-bar {
   position: absolute;
   bottom: 0px;
   width: 100%;
-  background-color: rgb(255, 234, 128);
-  height: 40px;
+  height: 45px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 200, 0);
 }
 .input-container {
   display: flex;
@@ -157,10 +250,39 @@ export default {
 .input-block {
   width: 354px;
   height: 140px;
+  font-size: 30px;
   border: 2px;
   border-style: dotted;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border-radius: 5px;
+  color: rgb(90, 55, 22);
+  cursor: pointer;
+}
+.add-image {
+  font-size: 15px;
+  margin-bottom: 20px;
+  color: rgb(90, 55, 22);
+}
+.icon {
+  font-size: 26px;
+  color: white;
+  margin-bottom: 2px;
+  margin-right: 60px;
+  cursor: pointer;
+}
+.banner {
+  font-family: 'HCRDotum';
+  font-size: 28px;
+  margin-top: -3px;
+  cursor: default;
+}
+.save-button {
+  font-family: 'HCRDotum';
+  cursor: default;
+  color: white;
+  margin-right: -8px;
+  margin-left: 58px;
 }
 </style>

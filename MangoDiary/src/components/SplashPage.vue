@@ -22,6 +22,7 @@ export default {
   align-items: center;
   height: 844px;
   width: 390px;
+  margin: -8px;
 }
 .logo {
   margin-top: 200px;
