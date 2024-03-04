@@ -83,13 +83,8 @@ export default {
       this.calendar = this.generateCalendar()
     },
     getDiaryId(day) {
-      const matchingDiaryEntries = this.$store.state.diary.filter(
-        (entry) =>
-          parseInt(entry.post_year) == this.$store.state.selectedYear &&
-          parseInt(entry.post_month) == this.$store.state.selectedMonth &&
-          parseInt(entry.post_date) == day
-      );
-      return matchingDiaryEntries.length > 0 ? matchingDiaryEntries[0]?.post_id : -1
+      const matchingDiaryEntries = this.$store.state.posts.filter((entry) => parseInt(entry.post_date) == day)
+      return matchingDiaryEntries.length > 0 ? matchingDiaryEntries[matchingDiaryEntries.length - 1]?.post_id : -1
     },
     getSelectedEmojiPath(day) {
       const result = this.$store.state.posts.filter((post) => parseInt(post.post_date) == day)
