@@ -58,6 +58,7 @@ export default {
       diaryId: 0,
       selectedEmoji: null,
       selectedEmojiId: '',
+      data: [],
     };
   },
   methods: {
@@ -77,6 +78,16 @@ export default {
       }
       const response = await axios.post(`${this.$store.state.port}/post/create`, newForm)
       this.diaryId = response.data.post_id
+    },
+    async getPost(id) {
+      const response = await axios.get(`${this.$store.state.port}/post/search/${id}`)
+      this.data = response.data
+      this.diaryContent = this.data.post_content
+      this.selectedImage = `${this.$store.state.port}${this.data.post_upload_image}`
+      this.selectedEmojiId = this.data.post_emoji_id
+      for (let i = 0; i < this.$store.state.emojis.length; i++) {
+        if (this.$store.state.emojis[i].emoji_id == this.selectedEmojiId) this.selectedEmoji = this.$store.state.emojis[i].emoji_name
+      }
     },
     handleClickMoveCalendar() {
       this.$router.push(this.$store.state.calendar)
@@ -133,11 +144,7 @@ export default {
     this.checkDate()
     this.getDiaryId()
     this.selectedDay = this.$route.params.selectedDay
-    if (this.diaryId != -1) {
-        this.diaryContent = this.$store.state.diary[this.diaryId]?.post_content
-        this.selectedImage = this.$store.state.diary[this.diaryId]?.post_upload_image
-        this.selectedEmoji = this.$store.state.diary[this.diaryId]?.post_emoji
-    }
+    if (this.diaryId != -1) this.getPost(this.diaryId)
   },
 };
 </script>
