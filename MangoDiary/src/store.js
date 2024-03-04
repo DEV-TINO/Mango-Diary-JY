@@ -88,17 +88,20 @@ const store = createStore({
             state.statisticsData.forEach((item) => {
                 item.count = 0
             })
-            state.diary.forEach(post => {
-                if (post.post_month == state.selectedMonth && post.post_year == state.selectedYear) {
+            const daysInMonth = new Date(state.selectedYear, state.selectedMonth, 0).getDate()
+            for (let i = 0; i < daysInMonth; i++) {
+                const datedPost = state.posts.filter(post => post.post_date == `${i}`)
+                if (datedPost.length > 0){
                     state.statisticsData.forEach(statistic => {
-                        if (post.post_emoji == statistic.emoji) {
-                            statistic.count++;
+                        if (datedPost[datedPost.length - 1].post_emoji_id == statistic.emoji_id) {
+                            statistic.count++
                         }
                     })
                 }
+            }
             })
             state.statisticsData.sort((a, b) => b.count - a.count)
-        }
+        },
     },
     actions: {
         async getAllEmojis(context){ 
