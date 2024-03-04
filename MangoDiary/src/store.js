@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 import data from './data/data.js'
 import statisticsData from './data/statistic.js'
+import axios from 'axios'
 
 const ROUTES = {
     statistics: '/statistics',
