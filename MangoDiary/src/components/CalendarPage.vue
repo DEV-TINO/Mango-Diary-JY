@@ -59,12 +59,12 @@ export default {
   },
   methods: {
     generateCalendar() {
-      const firstDay = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth - 1, 1).getDay();
-      const daysInMonth = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth, 0).getDate();
-      const row = 7;
-      let col = 5;
-      const calendar = [];
-      let dayCount = 1;
+      const firstDay = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth - 1, 1).getDay()
+      const daysInMonth = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth, 0).getDate()
+      const row = 7
+      let col = 5
+      const calendar = []
+      let dayCount = 1
       if ((firstDay + daysInMonth) > 35) col = 6
       for (let i = 0; i < col; i++) {
         const week = []
