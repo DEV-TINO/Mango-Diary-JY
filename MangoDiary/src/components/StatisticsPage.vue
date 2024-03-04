@@ -84,6 +84,7 @@ export default {
   },
   async mounted() {
     this.$store.commit('getToday')
+    await this.$store.dispatch('getAllEmojis')
     await this.$store.dispatch('getAllPosts')
     this.$store.commit('updateStatistic')
   },

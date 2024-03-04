@@ -10,12 +10,14 @@ const ROUTES = {
 }
 const WEEK_NAMES = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-const PREFIX = ['colored', 'grey']
+const PREFIX = ['color', 'gray']
+const PORT = 'http://18.117.80.209:3333'
 
 const store = createStore({
     state() {
         return {
             diary : data,
+            emojis: [],
             statisticsData : statisticsData,
             statistics : ROUTES.statistics,
             calendar : ROUTES.calendar,
@@ -30,6 +32,7 @@ const store = createStore({
             monthNames: MONTH_NAMES,
             prefix: PREFIX,
             diaryId: 0,
+            port: PORT,
             posts: [],
         }
     },
@@ -75,6 +78,9 @@ const store = createStore({
                 post_upload_image: null
               }
         },
+        setEmojis(state, emojis) {
+          state.emojis = emojis
+        },
         setAllPost(state, posts) { 
           state.posts = posts
         },
@@ -95,6 +101,15 @@ const store = createStore({
         }
     },
     actions: {
+        async getAllEmojis(context){ 
+            try {
+                const response = await axios.get(`${context.state.port}/emoji/all`)
+                const allEmojis = response.data.filter(emoji => emoji.emoji_type == 'JY')
+                context.commit('setEmojis', allEmojis)
+            } catch (error) {
+            console.log('[Error] getAllEmojis Failed,', error)
+            }
+        },
         async getAllPosts(context){
             try {
                 const allPostUrl = `${context.state.port}/post/all`
