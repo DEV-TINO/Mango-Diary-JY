@@ -38,18 +38,18 @@ const store = createStore({
     },
     mutations: {
         getToday(state) {
-            state.date = new Date();
-            state.selectedYear = state.date.getFullYear();
-            state.selectedMonth = state.date.getMonth() + 1;
-            state.currentYear = state.date.getFullYear();
-            state.currentMonth = state.date.getMonth() + 1;
-            state.today = state.date.getDate();
+            state.date = new Date()
+            state.selectedYear = state.date.getFullYear()
+            state.selectedMonth = state.date.getMonth() + 1
+            state.currentYear = state.date.getFullYear()
+            state.currentMonth = state.date.getMonth() + 1
+            state.today = state.date.getDate()
         },
         setSelectedYear(state, year) {
-            state.selectedYear = year;
+            state.selectedYear = year
         },
         setSelectedMonth(state, month) {
-            state.selectedMonth = month;
+            state.selectedMonth = month
         },
         setId(state) {
             state.diaryId++
