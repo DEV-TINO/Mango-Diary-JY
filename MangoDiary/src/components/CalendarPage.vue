@@ -92,8 +92,8 @@ export default {
       return matchingDiaryEntries.length > 0 ? matchingDiaryEntries[0]?.post_id : -1
     },
     getSelectedEmojiPath(day) {
-      const diaryId = this.getDiaryId(day)
-      return diaryId == -1 ? '' : `images/colored/${this.$store.state.diary[diaryId].post_emoji}.jpg`
+      const result = this.$store.state.posts.filter((post) => parseInt(post.post_date) == day)
+      return result.length > 0 ? result[result.length - 1]?.post_emoji_url : ""
     },
     updateCalendar() {
       this.calendar = this.generateCalendar()

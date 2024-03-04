@@ -10,7 +10,7 @@
         <h3 class="emotion">Emotion</h3>
         <div class="emoji-box">
           <div v-for="(emoji, index) in this.$store.state.statisticsData" :key="index">
-            <img :src="getEmojiImagePath(emoji.emoji)" @click="selectEmoji(emoji.emoji)" class="mood-list">
+            <img :src="getEmojiImagePath(emoji.emoji_id)" @click="selectEmoji(emoji.emoji_id)" class="mood-list">
             <div class="emoji-name">{{ emoji.name }}</div>
           </div>
         </div>
@@ -56,6 +56,7 @@ export default {
       selectedDay: null,
       diaryId: 0,
       selectedEmoji: null,
+      selectedEmojiId: '',
     };
   },
   methods: {
@@ -83,11 +84,25 @@ export default {
       });
       this.$router.push(this.$store.state.calendar)
     },
-    getEmojiImagePath(emoji) {
-      return `/images/${this.$store.state.prefix[this.selectedEmoji == emoji ? 0 : 1]}/${emoji}.jpg`
+    getEmojiName(emojiId) {
+      let emojiName = ''
+      this.$store.state.emojis.forEach(emoji => {
+        if(emoji.emoji_id == emojiId) {
+          emojiName = emoji.emoji_name
+        }
+      })
+      return emojiName
     },
-    selectEmoji(emoji) {
-      this.selectedEmoji = emoji
+    getEmojiImagePath(emojiId) {
+      const emojiName = this.getEmojiName(emojiId)
+      return `${this.$store.state.port}/static/images/JY/${this.$store.state.prefix[this.selectedEmoji == emojiName ? 0 : 1]}/${emojiName}.jpg`
+    },
+    selectEmoji(emojiId) {
+      const emojiName = this.getEmojiName(emojiId)
+      this.selectedEmoji = emojiName
+      for (let i = 0; i < this.$store.state.emojis.length; i++) {
+        if (this.$store.state.emojis[i].emoji_color_type == 'color' && this.$store.state.emojis[i].emoji_name == emojiName) this.selectedEmojiId = this.$store.state.emojis[i].emoji_id
+      }
     },
     handleImageUpload(event) {
       const file = event.target.files
