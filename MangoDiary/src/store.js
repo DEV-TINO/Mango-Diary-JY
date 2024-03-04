@@ -30,6 +30,7 @@ const store = createStore({
             monthNames: MONTH_NAMES,
             prefix: PREFIX,
             diaryId: 0,
+            posts: [],
         }
     },
     mutations: {
@@ -74,6 +75,9 @@ const store = createStore({
                 post_upload_image: null
               }
         },
+        setAllPost(state, posts) { 
+          state.posts = posts
+        },
         updateStatistic(state) {
             state.statisticsData.forEach((item) => {
                 item.count = 0
@@ -91,6 +95,32 @@ const store = createStore({
         }
     },
     actions: {
+        async getAllPosts(context){
+            try {
+                const allPostUrl = `${context.state.port}/post/all`
+                const requestData = {
+                    post_month: String(context.state.selectedMonth),
+                    post_year: String(context.state.selectedYear),
+                    post_type: 'JY',
+                }
+                const response = await axios.post(allPostUrl, requestData)
+                const beforePosts = response.data
+
+                const getEmojiUrls = beforePosts.map((post) => {
+                    const currentEmoji = post.post_emoji_id
+                    let emojiUrl = ''
+                    context.state.emojis.forEach((emoji) => {
+                        if (emoji.emoji_id == currentEmoji) {
+                        emojiUrl = `${context.state.port}${emoji.emoji_image}`
+                        }
+                    })
+                    return {...post, 'post_emoji_url': emojiUrl}
+                })
+                context.commit('setAllPost', getEmojiUrls)
+            } catch (error) {
+                console.log('[Error] getAllPosts Failed,', error)
+            }
+        }
     }
 })
 

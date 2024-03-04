@@ -126,7 +126,7 @@ export default {
     showDay(day) {
       return day ?? "ㅤ"
     },
-    handleClickChangeMonth(monthSet) {
+    async handleClickChangeMonth(monthSet) {
       const selectMonth = this.$store.state.selectedMonth + monthSet
       this.$store.commit('setSelectedMonth', selectMonth)
       if ((selectMonth) < 1) {
@@ -135,14 +135,16 @@ export default {
         this.$store.commit('increaseSelectedYear')
       }
       this.updateCalendar()
+      await this.$store.dispatch('getAllPosts')
     },
     changePointer(day) {
       if(this.isFutureDate(day)) return
       return day == null ? "" : "pointer-cursor"
     }
   },
-  mounted() {
+  async mounted() {
     this.$store.commit('getToday')
+    await this.$store.dispatch('getAllPosts')
     this.updateCalendar()
   },
 };

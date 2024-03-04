@@ -78,11 +78,13 @@ export default {
       } else if ((selectMonth) > 12) {
         this.$store.commit('increaseSelectedYear')
       }
+      await this.$store.dispatch('getAllPosts')
       this.$store.commit('updateStatistic')
     },
   },
-  mounted() {
+  async mounted() {
     this.$store.commit('getToday')
+    await this.$store.dispatch('getAllPosts')
     this.$store.commit('updateStatistic')
   },
 }
