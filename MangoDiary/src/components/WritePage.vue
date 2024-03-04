@@ -53,6 +53,7 @@ export default {
     return {
       diaryContent: '',
       selectedImage: null,
+      selectedFile: null,
       selectedDay: null,
       diaryId: 0,
       selectedEmoji: null,
@@ -60,6 +61,23 @@ export default {
     };
   },
   methods: {
+    async createPost() {
+      const formData = {
+        post_type: 'JY',
+        post_year: String(this.$store.state.selectedYear),
+        post_month: String(this.$store.state.selectedMonth),
+        post_date: String(this.selectedDay),
+        post_emoji_id: this.selectedEmojiId,
+        post_content: this.diaryContent,
+        post_upload_image: this.selectedFile
+      }
+      const newForm = new FormData()
+      for (const key in formData){
+        newForm.append(key, formData[key])
+      }
+      const response = await axios.post(`${this.$store.state.port}/post/create`, newForm)
+      this.diaryId = response.data.post_id
+    },
     handleClickMoveCalendar() {
       this.$router.push(this.$store.state.calendar)
     },
@@ -68,20 +86,7 @@ export default {
         alert("반드시 감정을 선택해야 합니다")
         return
       }
-      if (this.diaryId == -1) {
-        this.$store.commit('setId')
-        this.diaryId = this.$store.state.diaryId
-        this.$store.commit('setDiary', {
-          id: this.diaryId,
-          day: this.selectedDay
-        })
-      }
-      this.$store.commit('setDiaryEntry', {
-        id: this.diaryId,
-        content: this.diaryContent,
-        image: this.selectedImage,
-        emoji: this.selectedEmoji
-      });
+      this.createPost()
       this.$router.push(this.$store.state.calendar)
     },
     getEmojiName(emojiId) {
@@ -106,6 +111,7 @@ export default {
     },
     handleImageUpload(event) {
       const file = event.target.files
+      this.selectedFile = file[0]
       this.selectedImage = URL.createObjectURL(file[0])
     },
     handleClickMoveStatistics() {
