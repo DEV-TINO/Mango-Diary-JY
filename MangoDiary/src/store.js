@@ -1,5 +1,4 @@
 import { createStore } from 'vuex';
-import data from './data/data.js'
 import statisticsData from './data/statistic.js'
 import axios from 'axios'
 
@@ -16,7 +15,6 @@ const PORT = 'http://18.117.80.209:3333'
 const store = createStore({
     state() {
         return {
-            diary : data,
             emojis: [],
             statisticsData : statisticsData,
             statistics : ROUTES.statistics,
