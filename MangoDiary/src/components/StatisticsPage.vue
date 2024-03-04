@@ -70,7 +70,7 @@ export default {
     getMostSelectedEmojiPath() {
       return `/images/colored/${this.$store.state.statisticsData[0].emoji}.jpg`
     },
-    handleClickChangeMonth(monthSet) {
+    async handleClickChangeMonth(monthSet) {
       const selectMonth = this.$store.state.selectedMonth + monthSet
       this.$store.commit('setSelectedMonth', selectMonth)
       if ((selectMonth) < 1) {
