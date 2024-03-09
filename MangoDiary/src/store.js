@@ -97,7 +97,6 @@ const store = createStore({
                     })
                 }
             }
-            })
             state.statisticsData.sort((a, b) => b.count - a.count)
         },
     },
