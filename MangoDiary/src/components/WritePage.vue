@@ -86,9 +86,11 @@ export default {
       if (this.data.post_upload_image == "no image") this.selectedImage = null
       else this.selectedImage = `${this.$store.state.port}${this.data.post_upload_image}`
       this.selectedEmojiId = this.data.post_emoji_id
-      for (let i = 0; i < this.$store.state.emojis.length; i++) {
-        if (this.$store.state.emojis[i].emoji_id == this.selectedEmojiId) this.selectedEmoji = this.$store.state.emojis[i].emoji_name
-      }
+      this.$store.state.emojis.forEach(emoji => {
+        if (emoji.emoji_id == this.selectedEmojiId) {
+          this.selectedEmoji = emoji.emoji_name
+        }
+      })
     },
     handleClickMoveCalendar() {
       this.$router.push(this.$store.state.calendar)
@@ -117,9 +119,11 @@ export default {
     selectEmoji(emojiId) {
       const emojiName = this.getEmojiName(emojiId)
       this.selectedEmoji = emojiName
-      for (let i = 0; i < this.$store.state.emojis.length; i++) {
-        if (this.$store.state.emojis[i].emoji_color_type == 'color' && this.$store.state.emojis[i].emoji_name == emojiName) this.selectedEmojiId = this.$store.state.emojis[i].emoji_id
-      }
+      this.$store.state.emojis.forEach(emoji => {
+        if (emoji.emoji_color_type == 'color' && emoji.emoji_name == emojiName) {
+          this.selectedEmojiId = emoji.emoji_id
+        }
+      })
     },
     handleImageUpload(event) {
       const file = event.target.files
