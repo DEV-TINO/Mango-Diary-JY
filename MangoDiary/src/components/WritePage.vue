@@ -83,7 +83,8 @@ export default {
       const response = await axios.get(`${this.$store.state.port}/post/search/${id}`)
       this.data = response.data
       this.diaryContent = this.data.post_content
-      this.selectedImage = `${this.$store.state.port}${this.data.post_upload_image}`
+      if (this.data.post_upload_image == "no image") this.selectedImage = null
+      else this.selectedImage = `${this.$store.state.port}${this.data.post_upload_image}`
       this.selectedEmojiId = this.data.post_emoji_id
       for (let i = 0; i < this.$store.state.emojis.length; i++) {
         if (this.$store.state.emojis[i].emoji_id == this.selectedEmojiId) this.selectedEmoji = this.$store.state.emojis[i].emoji_name
