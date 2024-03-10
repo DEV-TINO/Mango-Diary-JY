@@ -104,12 +104,7 @@ export default {
       this.$router.push(this.$store.state.calendar)
     },
     getEmojiName(emojiId) {
-      let emojiName = ''
-      this.$store.state.emojis.forEach(emoji => {
-        if(emoji.emoji_id == emojiId) {
-          emojiName = emoji.emoji_name
-        }
-      })
+      const emojiName = (this.$store.state.emojis.find(emoji => emoji.emoji_id == emojiId)?.emoji_name) ?? ''
       return emojiName
     },
     getEmojiImagePath(emojiId) {
