@@ -10,7 +10,7 @@
         <h3 class="emotion">Emotion</h3>
         <div class="emoji-box">
           <div v-for="(emoji, index) in this.$store.state.statisticsData" :key="index">
-            <img :src="getEmojiImagePath(emoji.emoji)" @click="selectEmoji(emoji.emoji)" class="mood-list">
+            <img :src="getEmojiImagePath(emoji.emoji_id)" @click="selectEmoji(emoji.emoji_id)" class="mood-list">
             <div class="emoji-name">{{ emoji.name }}</div>
           </div>
         </div>
@@ -47,17 +47,51 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
       diaryContent: '',
       selectedImage: null,
+      selectedFile: null,
       selectedDay: null,
       diaryId: 0,
       selectedEmoji: null,
+      selectedEmojiId: '',
+      data: [],
     };
   },
   methods: {
+    async createPost() {
+      const formData = {
+        post_type: 'JY',
+        post_year: String(this.$store.state.selectedYear),
+        post_month: String(this.$store.state.selectedMonth),
+        post_date: String(this.selectedDay),
+        post_emoji_id: this.selectedEmojiId,
+        post_content: this.diaryContent,
+        post_upload_image: this.selectedFile
+      }
+      const newForm = new FormData()
+      for (const key in formData){
+        newForm.append(key, formData[key])
+      }
+      const response = await axios.post(`${this.$store.state.port}/post/create`, newForm)
+      this.diaryId = response.data.post_id
+    },
+    async getPost(id) {
+      const response = await axios.get(`${this.$store.state.port}/post/search/${id}`)
+      this.data = response.data
+      this.diaryContent = this.data.post_content
+      if (this.data.post_upload_image == "no image") this.selectedImage = null
+      else this.selectedImage = `${this.$store.state.port}${this.data.post_upload_image}`
+      this.selectedEmojiId = this.data.post_emoji_id
+      this.$store.state.emojis.forEach(emoji => {
+        if (emoji.emoji_id == this.selectedEmojiId) {
+          this.selectedEmoji = emoji.emoji_name
+        }
+      })
+    },
     handleClickMoveCalendar() {
       this.$router.push(this.$store.state.calendar)
     },
@@ -66,30 +100,29 @@ export default {
         alert("반드시 감정을 선택해야 합니다")
         return
       }
-      if (this.diaryId == -1) {
-        this.$store.commit('setId')
-        this.diaryId = this.$store.state.diaryId
-        this.$store.commit('setDiary', {
-          id: this.diaryId,
-          day: this.selectedDay
-        })
-      }
-      this.$store.commit('setDiaryEntry', {
-        id: this.diaryId,
-        content: this.diaryContent,
-        image: this.selectedImage,
-        emoji: this.selectedEmoji
-      });
+      this.createPost()
       this.$router.push(this.$store.state.calendar)
     },
-    getEmojiImagePath(emoji) {
-      return `/images/${this.$store.state.prefix[this.selectedEmoji == emoji ? 0 : 1]}/${emoji}.jpg`
+    getEmojiName(emojiId) {
+      const emojiName = (this.$store.state.emojis.find(emoji => emoji.emoji_id == emojiId)?.emoji_name) ?? ''
+      return emojiName
     },
-    selectEmoji(emoji) {
-      this.selectedEmoji = emoji
+    getEmojiImagePath(emojiId) {
+      const emojiName = this.getEmojiName(emojiId)
+      return `${this.$store.state.port}/static/images/JY/${this.$store.state.prefix[this.selectedEmoji == emojiName ? 0 : 1]}/${emojiName}.jpg`
+    },
+    selectEmoji(emojiId) {
+      const emojiName = this.getEmojiName(emojiId)
+      this.selectedEmoji = emojiName
+      this.$store.state.emojis.forEach(emoji => {
+        if (emoji.emoji_color_type == 'color' && emoji.emoji_name == emojiName) {
+          this.selectedEmojiId = emoji.emoji_id
+        }
+      })
     },
     handleImageUpload(event) {
       const file = event.target.files
+      this.selectedFile = file[0]
       this.selectedImage = URL.createObjectURL(file[0])
     },
     handleClickMoveStatistics() {
@@ -111,11 +144,7 @@ export default {
     this.checkDate()
     this.getDiaryId()
     this.selectedDay = this.$route.params.selectedDay
-    if (this.diaryId != -1) {
-        this.diaryContent = this.$store.state.diary[this.diaryId]?.post_content
-        this.selectedImage = this.$store.state.diary[this.diaryId]?.post_upload_image
-        this.selectedEmoji = this.$store.state.diary[this.diaryId]?.post_emoji
-    }
+    if (this.diaryId != -1) this.getPost(this.diaryId)
   },
 };
 </script>

@@ -18,7 +18,7 @@
     </header>
     <div>
       <div class="most-selected-container" v-if="this.$store.state.statisticsData[0]?.count ?? 0 > 0">
-        <img :src="getMostSelectedEmojiPath()" class="most-selected-emoji">
+        <img :src="getEmojiPath(this.$store.state.statisticsData[0])" class="most-selected-emoji">
         <div class="left-align-content">
           <h4 class="selected-month">{{ this.$store.state.statisticsData[0]?.month ?? "" }}</h4>
           <p class="detail">{{ this.$store.state.statisticsData[0]?.name ?? "" }} 망고 {{ this.$store.state.statisticsData[0]?.count ?? 0 }}개</p>
@@ -64,13 +64,11 @@ export default {
       this.$router.push(this.$store.state.calendar)
     },
     getEmojiPath(data) {
-      if (data.count > 0) return `/images/colored/${data.emoji}.jpg`
-      return `/images/grey/${data.emoji}.jpg`
+      const emojiName = (this.$store.state.emojis.find(emoji => emoji.emoji_id == data.emoji_id)?.emoji_name) ?? ''
+      if (data.count > 0) return `${this.$store.state.port}/static/images/JY/color/${emojiName}.jpg`
+      return `${this.$store.state.port}/static/images/JY/gray/${emojiName}.jpg`
     },
-    getMostSelectedEmojiPath() {
-      return `/images/colored/${this.$store.state.statisticsData[0].emoji}.jpg`
-    },
-    handleClickChangeMonth(monthSet) {
+    async handleClickChangeMonth(monthSet) {
       const selectMonth = this.$store.state.selectedMonth + monthSet
       this.$store.commit('setSelectedMonth', selectMonth)
       if ((selectMonth) < 1) {
@@ -78,11 +76,14 @@ export default {
       } else if ((selectMonth) > 12) {
         this.$store.commit('increaseSelectedYear')
       }
+      await this.$store.dispatch('getAllPosts')
       this.$store.commit('updateStatistic')
     },
   },
-  mounted() {
+  async mounted() {
     this.$store.commit('getToday')
+    await this.$store.dispatch('getAllEmojis')
+    await this.$store.dispatch('getAllPosts')
     this.$store.commit('updateStatistic')
   },
 }

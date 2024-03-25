@@ -58,12 +58,12 @@ export default {
   },
   methods: {
     generateCalendar() {
-      const firstDay = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth - 1, 1).getDay();
-      const daysInMonth = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth, 0).getDate();
-      const row = 7;
-      let col = 5;
-      const calendar = [];
-      let dayCount = 1;
+      const firstDay = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth - 1, 1).getDay()
+      const daysInMonth = new Date(this.$store.state.selectedYear, this.$store.state.selectedMonth, 0).getDate()
+      const row = 7
+      let col = 5
+      const calendar = []
+      let dayCount = 1
       if ((firstDay + daysInMonth) > 35) col = 6
       for (let i = 0; i < col; i++) {
         const week = []
@@ -82,17 +82,12 @@ export default {
       this.calendar = this.generateCalendar()
     },
     getDiaryId(day) {
-      const matchingDiaryEntries = this.$store.state.diary.filter(
-        (entry) =>
-          parseInt(entry.post_year) == this.$store.state.selectedYear &&
-          parseInt(entry.post_month) == this.$store.state.selectedMonth &&
-          parseInt(entry.post_date) == day
-      );
-      return matchingDiaryEntries.length > 0 ? matchingDiaryEntries[0]?.post_id : -1
+      const matchingDiaryEntries = this.$store.state.posts.filter((entry) => parseInt(entry.post_date) == day)
+      return matchingDiaryEntries.length > 0 ? matchingDiaryEntries[matchingDiaryEntries.length - 1]?.post_id : -1
     },
     getSelectedEmojiPath(day) {
-      const diaryId = this.getDiaryId(day)
-      return diaryId == -1 ? '' : `images/colored/${this.$store.state.diary[diaryId].post_emoji}.jpg`
+      const result = this.$store.state.posts.filter((post) => parseInt(post.post_date) == day)
+      return result.length > 0 ? result[result.length - 1]?.post_emoji_url : ""
     },
     updateCalendar() {
       this.calendar = this.generateCalendar()
@@ -125,7 +120,7 @@ export default {
     showDay(day) {
       return day ?? "ㅤ"
     },
-    handleClickChangeMonth(monthSet) {
+    async handleClickChangeMonth(monthSet) {
       const selectMonth = this.$store.state.selectedMonth + monthSet
       this.$store.commit('setSelectedMonth', selectMonth)
       if ((selectMonth) < 1) {
@@ -134,14 +129,17 @@ export default {
         this.$store.commit('increaseSelectedYear')
       }
       this.updateCalendar()
+      await this.$store.dispatch('getAllPosts')
     },
     changePointer(day) {
       if(this.isFutureDate(day)) return
       return day == null ? "" : "pointer-cursor"
     }
   },
-  mounted() {
+  async mounted() {
     this.$store.commit('getToday')
+    await this.$store.dispatch('getAllEmojis')
+    await this.$store.dispatch('getAllPosts')
     this.updateCalendar()
   },
 };
